@@ -1,0 +1,85 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { fetchData, responsiveImageFragment } from "@/lib/datocms"
+import BlockContent from "@/components/blocks/BlockContent.astro"
+import ProjectCard from "@/components/cards/ProjectCard.astro"
+import Spacer from "@/components/blocks/Spacer.astro"
+import BgMedia from "@/components/media/BgMedia.astro"
+
+export async function getStaticPaths() {
+    const { allProjects } = await fetchData(`query { allProjects(first: 100) { slug } }`)
+    return allProjects.map(p => ({ params: { slug: p.slug } }))
+}
+
+const { slug } = Astro.params
+const img = `{ ${responsiveImageFragment} }`
+const QUERY = `query Project($slug: String) {
+    project(filter: { slug: { eq: $slug } }) {
+        title
+        heroCaption
+        heroImage ${img}
+        projectType
+        collaborators
+        completionStatus
+        content {
+            __typename
+            ... on CenteredImageBlockRecord { caption image ${img} }
+            ... on FullBannerBlockRecord { image ${img} }
+            ... on PortraitImageBlockRecord { caption image ${img} }
+            ... on OverviewBlockRecord { heading body }
+            ... on GalleryBlockRecord { slides { caption image ${img} } }
+        }
+    }
+    allProjects(first: 5, filter: { slug: { neq: $slug } }, orderBy: position_ASC) {
+        title slug shortDescription availableResidences salesStatus category { slug } cardImage ${img}
+    }
+    _allProjectsMeta { count }
+}`
+
+const { project, allProjects, _allProjectsMeta } = await fetchData(QUERY, { slug })
+const related = allProjects.slice(0, 4)
+const details = [
+    { label: "Type", value: project.projectType },
+    { label: "Collaborators", value: project.collaborators },
+    { label: "Status", value: project.completionStatus }
+].filter(d => d.value)
+---
+
+<Layout title={`${project.title} — Chapter Two`}>
+    <section class="detail-hero" data-dark>
+        <div class="hero-media" data-parallax><BgMedia image={project.heroImage} sizes="100vw" /></div>
+        <div class="scrim"></div>
+        <h1 class="h1 pos-rel z-2 max-1600 anim-heading">{project.title}</h1>
+    </section>
+
+    <Spacer count={2} />
+
+    <BlockContent blocks={project.content} />
+
+    <Spacer count={1} />
+
+    <section class="page flex flex-col align-center text-center gap-40">
+        {details.map(detail => (
+            <div class="flex flex-col gap-4 fade--up" data-scroll>
+                <span class="small op-60">{detail.label}</span>
+                <span class="small uppercase">{detail.value}</span>
+            </div>
+        ))}
+    </section>
+
+    <Spacer count={2} />
+
+    {related.length > 0 && (
+        <section class="page">
+            <div class="flex space-between align-center">
+                <h2 class="h3">Keep Exploring</h2>
+                <a href="/projects" class="small op-60 nav-link">See All ({_allProjectsMeta.count})</a>
+            </div>
+            <div class="grid-4 gap-40 mt40 m-grid-1 m-gap-40">
+                {related.map(p => <ProjectCard project={p} />)}
+            </div>
+        </section>
+    )}
+
+    <Spacer count={2} />
+</Layout>

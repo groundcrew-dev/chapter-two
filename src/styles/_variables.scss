@@ -1,0 +1,113 @@
+/*--------------------------------------------------------------
+## Variables, Maps & Mixins
+--------------------------------------------------------------*/
+
+@use "functions" as *;
+@forward "functions";
+
+/* ------------ Fonts ------------ */
+
+$font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-serif: Georgia, "Times New Roman", serif;
+$font-small: Georgia, "Times New Roman", serif;
+
+/* ------------ Colours ------------ */
+
+$colors: (
+    "white": #ffffff,
+    "text": #393329,
+    "dark": #36322c,
+    "darker": #2b2924,
+    "muted": rgba(57, 51, 41, 0.5),
+    "line": rgba(57, 51, 41, 0.15),
+    "teal": #1d5b57
+);
+
+/* ------------ Spacing & Gaps ------------ */
+
+$spacings: (
+    4: 4,
+    6: 6,
+    8: 8,
+    10: 10,
+    12: 12,
+    16: 16,
+    20: 20,
+    24: 24,
+    30: 30,
+    37: 37,
+    40: 40,
+    50: 50,
+    60: 60,
+    80: 80,
+    100: 100,
+    120: 120,
+    0: 0,
+    auto: auto
+);
+
+$gaps: (
+    4: 4,
+    8: 8,
+    10: 10,
+    12: 12,
+    16: 16,
+    20: 20,
+    24: 24,
+    30: 30,
+    37: 37,
+    40: 40,
+    50: 50,
+    60: 60,
+    80: 80,
+    100: 100,
+    0: 0
+);
+
+$max-widths: (
+    400: 400,
+    450: 450,
+    500: 500,
+    600: 600,
+    660: 660,
+    700: 700,
+    750: 750,
+    800: 800,
+    900: 900,
+    1000: 1000,
+    1200: 1200,
+    1300: 1300,
+    1336: 1336,
+    1600: 1600
+);
+
+/* ------------ Mixins ------------ */
+
+@mixin icon($url, $size: contain) {
+    background-image: url($url);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: $size;
+}
+
+@mixin icon-mask($url, $width, $height) {
+    width: $width;
+    height: $height;
+    display: inline-block;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask-image: url($url);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-image: url($url);
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+@mixin mobile {
+    @media (max-width: $breakpoint-mobile) {
+        @content;
+    }
+}

@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { fetchData, responsiveImageFragment } from "@/lib/datocms"
+import ArticleCard from "@/components/cards/ArticleCard.astro"
+import Spacer from "@/components/blocks/Spacer.astro"
+
+const QUERY = `query {
+    allArticles(orderBy: date_DESC, first: 100) {
+        title
+        slug
+        category
+        readTime
+        listingImage { ${responsiveImageFragment} }
+    }
+}`
+
+const { allArticles } = await fetchData(QUERY)
+const filters = [{ label: "All", value: "all" }, { label: "News", value: "news" }, { label: "Announcements", value: "announcement" }, { label: "Updates", value: "update" }]
+---
+
+<Layout title="Articles — Chapter Two">
+    <section class="page page-title">
+        <h1 class="h1 anim-heading">Articles</h1>
+        <div class="filter-bar small mt40" data-filter data-enter>
+            <span>Filter</span>
+            {filters.map((f, i) => <button class={`filter-option${i === 0 ? " is-active" : ""}`} data-status={f.value}>{f.label}</button>)}
+        </div>
+    </section>
+
+    <section class="page grid-2 gap-x-24 gap-y-60 m-grid-1 m-gap-40" data-grid>
+        {allArticles.map(article => <ArticleCard article={article} />)}
+    </section>
+
+    <Spacer count={2} />
+</Layout>

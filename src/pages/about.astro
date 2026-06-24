@@ -1,0 +1,50 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { fetchData, responsiveImageFragment } from "@/lib/datocms"
+import SplitContent from "@/components/blocks/SplitContent.astro"
+import BgImage from "@/components/media/BgImage.astro"
+import Spacer from "@/components/blocks/Spacer.astro"
+
+const QUERY = `query {
+    aboutPage {
+        heroHeading
+        sectionTitle
+        body
+        featureImage { ${responsiveImageFragment} }
+        teamMembers { name role linkedinUrl image { ${responsiveImageFragment} } }
+    }
+}`
+
+const { aboutPage } = await fetchData(QUERY)
+const headingHtml = (aboutPage.heroHeading ?? "").replace(/\.\s+/g, ".<br>")
+---
+
+<Layout title="About — Chapter Two">
+    <section class="page page-title tight">
+        <h1 class="h2 anim-heading" set:html={headingHtml}></h1>
+    </section>
+
+    <section class="page">
+        <div class="pos-rel w-100 max-800 ma ratio-about overflow"><BgImage image={aboutPage.featureImage} sizes="(max-width: 768px) 90vw, 46vw" /></div>
+    </section>
+
+    <Spacer count={2} />
+
+    <SplitContent heading={aboutPage.sectionTitle} body={aboutPage.body} spacers={2} />
+
+    <section class="page grid-4 gap-40 m-grid-2 m-gap-20">
+        {aboutPage.teamMembers.map(member => (
+            <div class="flex flex-col gap-16 fade--up" data-scroll>
+                <div class="pos-rel ratio-card overflow"><BgImage image={member.image} sizes="(max-width: 768px) 45vw, 22vw" /></div>
+                <h3 class="h3">{member.name}</h3>
+                <div class="flex space-between align-center gap-16">
+                    <span class="small op-60">{member.role}</span>
+                    {member.linkedinUrl && <a href={member.linkedinUrl} target="_blank" rel="noreferrer" class="small flex align-center gap-8">LinkedIn<span class="icon-arrow"></span></a>}
+                </div>
+                <div class="divider"></div>
+            </div>
+        ))}
+    </section>
+
+    <Spacer count={2} />
+</Layout>

@@ -1,0 +1,7 @@
+---
+import BgImage from "@/components/media/BgImage.astro"
+
+const { image, video, focalPoint, sizes } = Astro.props
+---
+
+{video ? <video class="bg-video" src={video} autoplay muted loop playsinline data-img></video> : <BgImage image={image} focalPoint={focalPoint} sizes={sizes} />}

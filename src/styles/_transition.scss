@@ -1,0 +1,59 @@
+/*--------------------------------------------------------------
+## Page Transition
+--------------------------------------------------------------*/
+
+@use "variables" as *;
+
+:root {
+    --pt-ease: linear(0, 0.0041, 0.0098, 0.0171, 0.0263, 0.0373, 0.0505, 0.0659, 0.0836, 0.1039, 0.1269, 0.1529, 0.1822, 0.2145, 0.2502, 0.2895, 0.3322, 0.3784, 0.4275, 0.4793, 0.5326, 0.5865, 0.6395, 0.6904, 0.7385, 0.7817, 0.8191, 0.845, 0.8677, 0.8882, 0.9066, 0.9231, 0.9379, 0.951, 0.9624, 0.9724, 0.981, 0.9882, 0.9939, 0.9978, 1);
+}
+
+.page-shell {
+    position: relative;
+    min-height: 100svh;
+    z-index: 2;
+    background-color: var(--c-bg);
+    transition: background-color 0.6s ease;
+}
+
+html.is-transitioning,
+html.is-transitioning body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+::view-transition {
+    background-color: #36322c;
+}
+
+::view-transition-group(root) {
+    animation-duration: 0.7s;
+    animation-timing-function: var(--pt-ease);
+}
+
+::view-transition-old(root) {
+    animation: 0.7s var(--pt-ease) both pt-old;
+    mix-blend-mode: normal;
+    transform-origin: center center;
+}
+
+::view-transition-new(root) {
+    animation: 0.7s var(--pt-ease) both pt-new;
+    mix-blend-mode: normal;
+}
+
+@keyframes pt-old {
+    to {
+        transform: translateY(-30vh) scale(0.8);
+        opacity: 0.4;
+    }
+}
+
+@keyframes pt-new {
+    from {
+        clip-path: inset(100% 0% 0% 0%);
+    }
+    to {
+        clip-path: inset(0% 0% 0% 0%);
+    }
+}

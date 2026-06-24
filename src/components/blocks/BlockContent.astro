@@ -1,0 +1,21 @@
+---
+import CenteredImage from "@/components/blocks/CenteredImage.astro"
+import FullBanner from "@/components/blocks/FullBanner.astro"
+import PortraitImage from "@/components/blocks/PortraitImage.astro"
+import SplitContent from "@/components/blocks/SplitContent.astro"
+import Spacer from "@/components/blocks/Spacer.astro"
+import { Gallery } from "@/components/blocks/Gallery.jsx"
+
+const { blocks = [] } = Astro.props
+---
+
+{blocks.map((block, i) => (
+    <>
+        {i > 0 && <Spacer count={2} />}
+        {block.__typename === "CenteredImageBlockRecord" && <CenteredImage block={block} />}
+        {block.__typename === "FullBannerBlockRecord" && <FullBanner block={block} />}
+        {block.__typename === "PortraitImageBlockRecord" && <PortraitImage block={block} />}
+        {block.__typename === "OverviewBlockRecord" && <SplitContent heading={block.heading || "Overview"} body={block.body} spacers={0} />}
+        {block.__typename === "GalleryBlockRecord" && <Gallery client:visible slides={block.slides} />}
+    </>
+))}

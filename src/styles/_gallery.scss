@@ -1,0 +1,19 @@
+/*--------------------------------------------------------------
+## Gallery
+--------------------------------------------------------------*/
+
+@use "variables" as *;
+
+.gallery-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.gallery-img.is-active {
+    opacity: 1;
+}

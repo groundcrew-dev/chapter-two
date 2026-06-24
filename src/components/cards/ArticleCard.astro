@@ -1,0 +1,20 @@
+---
+import BgImage from "@/components/media/BgImage.astro"
+
+const { article } = Astro.props
+const categoryLabel = { news: "News", announcement: "Announcement", update: "Update" }[article.category] ?? ""
+const mins = article.readTime?.match(/\d+/)?.[0]
+const readShort = mins ? `${mins} Min${mins === "1" ? "" : "s"}` : article.readTime
+---
+
+<a href={`/articles/${article.slug}`} class="article-card grid-2 gap-20 align-stretch fade--up" data-scroll data-category={article.category} data-status="all">
+    <div class="pos-rel ratio-article overflow"><BgImage image={article.listingImage} sizes="(max-width: 768px) 45vw, 22vw" /></div>
+    <div class="flex flex-col space-between border-t-strong border-b py16">
+        <h3 class="h3">{article.title}</h3>
+        <div class="flex space-between align-center gap-16">
+            <span class="small"><span class="op-60">Article</span> <span class="uppercase">{categoryLabel}</span></span>
+            <span class="small"><span class="op-60">Read</span> <span class="uppercase">{readShort}</span></span>
+            <span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span>
+        </div>
+    </div>
+</a>

@@ -1,0 +1,30 @@
+---
+import { fetchData } from "@/lib/datocms"
+
+const { siteConfig } = await fetchData(`query { siteConfig { footerTagline copyright instagramUrl } }`)
+const tagline = (siteConfig?.footerTagline ?? "Considered Places. Lasting Value.").replace(/\.\s+/g, ".<br>")
+const links = [
+    { label: "Portfolio", href: "/projects" },
+    { label: "About", href: "/about" },
+    { label: "News", href: "/articles" },
+    { label: "Contact", href: "/contact" }
+]
+---
+
+<footer class="footer" data-footer>
+    <div class="footer__content" data-footer-content>
+        <div class="flex space-between align-center">
+            <a href="/" class="footer__logo" aria-label="Chapter Two"></a>
+            <div class="flex align-center gap-20">
+                <a href={siteConfig?.instagramUrl ?? "https://instagram.com"} target="_blank" rel="noreferrer" class="icon-instagram" aria-label="Instagram"></a>
+                <button class="toggle" aria-label="Toggle theme"><span class="toggle__knob"></span></button>
+            </div>
+        </div>
+        <div class="flex-1 flex align-center justify-center text-center"><p class="h1 small" set:html={tagline}></p></div>
+        <div class="center-grid align-end gap-20 m-grid-1 m-gap-8">
+            <span class="small op-60">{siteConfig?.copyright ?? "© 2026 Chapter Two"} All Rights Reserved.</span>
+            <nav class="flex gap-8 justify-self-center">{links.map((link, i) => <a href={link.href} class="small op-60 nav-link">{link.label}{i < links.length - 1 ? "," : ""}</a>)}</nav>
+            <span class="small op-60 justify-self-end text-right m-text-left">Terms, Privacy, Website by Groundcrew</span>
+        </div>
+    </div>
+</footer>

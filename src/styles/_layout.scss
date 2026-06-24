@@ -1,0 +1,113 @@
+/*--------------------------------------------------------------
+## Layout, Fonts & Typography
+--------------------------------------------------------------*/
+
+@use "variables" as *;
+@use "sass:map";
+@use "sass:math";
+
+/* ------------ Base ------------ */
+
+:root {
+    --c-bg: #ffffff;
+    --c-text: #393329;
+    --c-line: rgba(57, 51, 41, 0.15);
+}
+
+html.theme-dark {
+    --c-bg: #36322c;
+    --c-text: #ffffff;
+    --c-line: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    font-family: $font-sans;
+    font-weight: 500;
+    color: var(--c-text);
+    background-color: var(--c-bg);
+    font-size: 16px;
+    transition: background-color 0.6s ease, color 0.6s ease;
+
+    @include mobile {
+        font-size: 14px;
+    }
+}
+
+/* ------------ Serif Text (declared before headings so heading classes win shared props) ------------ */
+
+.large {
+    font-family: $font-serif;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: math.div(26, 21);
+    letter-spacing: 0.02em;
+
+    @include mobile {
+        font-size: 16px;
+        line-height: math.div(22, 16);
+    }
+}
+
+.small {
+    font-family: $font-small;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.count {
+    font-family: $font-small;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 1.2;
+}
+
+/* ------------ Headings (classes only, never bare tags) ------------ */
+
+.h1 {
+    font-family: $font-sans;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: vw(188);
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+
+    @include mobile {
+        font-size: mvw(78);
+    }
+
+    &.small {
+        font-size: vw(148);
+
+        @include mobile {
+            font-size: mvw(60);
+        }
+    }
+}
+
+.h2 {
+    font-family: $font-sans;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 78px;
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+
+    @include mobile {
+        font-size: 40px;
+    }
+}
+
+.h3 {
+    font-family: $font-sans;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 0.78;
+    letter-spacing: -0.02em;
+
+    @include mobile {
+        font-size: 16px;
+    }
+}

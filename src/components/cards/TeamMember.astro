@@ -1,0 +1,18 @@
+---
+import BgImage from "@/components/media/BgImage.astro"
+
+const { member, index } = Astro.props
+const num = String(index).padStart(2, "0")
+---
+
+<div class="team-member flex flex-col gap-16 fade--up" data-scroll>
+    <div class="pos-rel ratio-card overflow">
+        <BgImage image={member.image} sizes="(max-width: 768px) 45vw, 22vw" />
+        <span class="small white pos-abs z-2 p16">{num}</span>
+    </div>
+    <div class="flex flex-col gap-4">
+        <h3 class="h3">{member.name}</h3>
+        <p class="small op-60">{member.role}</p>
+        {member.linkedinUrl && <a href={member.linkedinUrl} target="_blank" rel="noreferrer" class="small op-60">LinkedIn</a>}
+    </div>
+</div>

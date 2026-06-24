@@ -1,0 +1,33 @@
+---
+import "@/styles/site.scss"
+import { ClientRouter } from "astro:transitions"
+import Header from "@/components/layout/Header.astro"
+import Footer from "@/components/layout/Footer.astro"
+
+const { title = "Chapter Two", description = "Chapter Two creates apartments, townhouses and masterplanned neighbourhoods across South East Queensland." } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="icon" href="/favicon.svg" />
+        <script is:inline>
+            try { if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("theme-dark") } catch (e) {}
+        </script>
+        <ClientRouter />
+    </head>
+    <body>
+        <Header />
+        <main class="page-shell" id="page-main" data-main>
+            <slot />
+        </main>
+        <Footer />
+        <script>
+            import "@/scripts/app.js"
+        </script>
+    </body>
+</html>

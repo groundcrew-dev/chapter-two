@@ -1,0 +1,68 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { fetchData, responsiveImageFragment } from "@/lib/datocms"
+import Hero from "@/components/sections/Hero.astro"
+import FeaturedProject from "@/components/sections/FeaturedProject.astro"
+import CategoryCard from "@/components/cards/CategoryCard.astro"
+import TeamSection from "@/components/sections/TeamSection.astro"
+import Spacer from "@/components/blocks/Spacer.astro"
+import BgImage from "@/components/media/BgImage.astro"
+
+const QUERY = `query {
+    homepage {
+        heroHeading
+        heroSubtitle
+        ceHeading
+        ceBody
+        ceSpacers
+        ceImage { ${responsiveImageFragment} }
+        teamHeading
+        teamBody
+        teamImage { ${responsiveImageFragment} }
+        teamMembers { name role linkedinUrl image { ${responsiveImageFragment} } }
+        featuredProject { title slug heroCaption heroImage { ${responsiveImageFragment} } }
+    }
+    allCategories(orderBy: position_ASC) { id title slug shortDescription image { ${responsiveImageFragment} } }
+    allProjects(first: 100) { category { id } }
+}`
+
+const { homepage, allCategories, allProjects } = await fetchData(QUERY)
+
+const order = ["townhouses", "land-communities", "apartments"]
+const categories = [...allCategories].sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug))
+
+const counts = {}
+allProjects.forEach(p => {
+    const cid = p.category?.id
+    if (cid) counts[cid] = (counts[cid] ?? 0) + 1
+})
+---
+
+<Layout title="Chapter Two — Considered Places. Lasting Value.">
+    <Hero heading={homepage.heroHeading} subtitle={homepage.heroSubtitle} />
+
+    <section class="pos-rel w-100 ratio-ocean overflow" id="featured" data-parallax><BgImage image={homepage.ceImage} sizes="100vw" /></section>
+
+    <Spacer count={2} />
+
+    <div class="page grid-2 gap-24 m-grid-1 m-gap-20">
+        <p class="h3 fade--up" data-scroll>{homepage.ceHeading}</p>
+        <div class="rich-text fade--up delay-1" data-scroll set:html={homepage.ceBody}></div>
+    </div>
+
+    <Spacer count={2} />
+
+    <section class="page category-grid">
+        {categories.map(category => <CategoryCard category={category} count={counts[category.id] ?? 0} />)}
+    </section>
+
+    <Spacer count={2} />
+
+    {homepage.featuredProject && <FeaturedProject project={homepage.featuredProject} />}
+
+    <Spacer count={2} />
+
+    <TeamSection heading={homepage.teamHeading} body={homepage.teamBody} image={homepage.teamImage} members={homepage.teamMembers} />
+
+    <Spacer count={2} />
+</Layout>

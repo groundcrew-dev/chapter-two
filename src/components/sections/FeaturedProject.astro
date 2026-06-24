@@ -1,0 +1,15 @@
+---
+import BgMedia from "@/components/media/BgMedia.astro"
+
+const { project } = Astro.props
+---
+
+<section class="featured pos-rel h-100vh overflow flex align-center justify-center text-center white" data-dark>
+    <div class="hero-media" data-parallax><BgMedia image={project.heroImage} sizes="100vw" /></div>
+    <div class="scrim"></div>
+    <a href={`/projects/${project.slug}`} class="pos-rel z-2 flex flex-col align-center gap-24 fade--up" data-scroll>
+        <span class="h3">Featured Project</span>
+        <h2 class="h2 max-1200 anim-heading">{project.title}</h2>
+        <span class="arrow-box"><span class="icon-arrow-diagonal"></span></span>
+    </a>
+</section>

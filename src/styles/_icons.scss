@@ -1,0 +1,51 @@
+/*--------------------------------------------------------------
+## Icons
+--------------------------------------------------------------*/
+
+@use "variables" as *;
+
+/* ------------ Logo ------------ */
+
+.logo {
+    display: block;
+    width: vw(118);
+    aspect-ratio: 118 / 11.93;
+    background-color: currentColor;
+    -webkit-mask: url("/icons/logo.svg") no-repeat center / contain;
+    mask: url("/icons/logo.svg") no-repeat center / contain;
+
+    @include mobile {
+        width: mvw(86);
+    }
+}
+
+/* ------------ Mask Icons ------------ */
+
+.icon-instagram {
+    @include icon-mask("/icons/instagram.svg", s(18), s(18));
+}
+
+.icon-arrow {
+    @include icon-mask("/icons/arrow.svg", s(14), s(14));
+}
+
+.icon-arrow-left {
+    @include icon-mask("/icons/arrow.svg", s(14), s(14));
+    transform: rotate(180deg);
+}
+
+.icon-chevron {
+    @include icon-mask("/icons/chevron.svg", s(10), s(16));
+}
+
+.icon-arrow-down {
+    @include icon-mask("/icons/arrow-down.svg", s(14), s(14));
+}
+
+.icon-arrow-diagonal {
+    @include icon-mask("/icons/arrow-diagonal.svg", s(11), s(11));
+}
+
+.icon-play {
+    @include icon-mask("/icons/play.svg", s(10), s(12));
+}

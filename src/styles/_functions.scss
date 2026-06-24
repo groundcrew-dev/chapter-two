@@ -1,0 +1,21 @@
+/*--------------------------------------------------------------
+## Functions & Scaling
+--------------------------------------------------------------*/
+
+@use "sass:math";
+
+$design-desktop: 1728;
+$design-mobile: 393;
+$breakpoint-mobile: 768px;
+
+@function vw($px, $base: $design-desktop) {
+    @return math.div($px, $base) * 100vw;
+}
+
+@function mvw($px) {
+    @return math.div($px, $design-mobile) * 100vw;
+}
+
+@function s($px) {
+    @return calc(#{$px} / var(--vwb) * 100vw);
+}

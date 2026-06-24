@@ -1,0 +1,18 @@
+---
+import BgImage from "@/components/media/BgImage.astro"
+
+const { project } = Astro.props
+---
+
+<a href={`/projects/${project.slug}`} class="flex flex-col fade--up" data-scroll data-category={project.category?.slug} data-status={project.salesStatus}>
+    <div class="pos-rel ratio-card overflow"><BgImage image={project.cardImage} sizes="(max-width: 768px) 90vw, 23vw" /></div>
+    <h3 class="h3 mt20">{project.title}</h3>
+    <div class="flex space-between align-start gap-16 mt37 mb20">
+        <div class="flex flex-col">
+            <p class="small op-60">{project.shortDescription}</p>
+            <p class="small op-60">({project.availableResidences ?? 0})</p>
+        </div>
+        <span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span>
+    </div>
+    <div class="divider mta"></div>
+</a>
