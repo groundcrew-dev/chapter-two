@@ -46,10 +46,13 @@ const details = [
 ---
 
 <Layout title={`${project.title} — Chapter Two`}>
-    <section class="detail-hero" data-dark>
+    <section class="detail-hero has-meta" data-dark>
         <div class="hero-media" data-parallax><BgMedia image={project.heroImage} sizes="100vw" /></div>
         <div class="scrim"></div>
-        <h1 class="h1 pos-rel z-2 max-1600 anim-heading">{project.title}</h1>
+        <div class="pos-rel z-2 flex flex-col align-center gap-20 fade--up" data-scroll>
+            <h1 class="h1 max-1600 anim-heading">{project.title}</h1>
+            {project.heroCaption && <span class="small balance">{project.heroCaption}</span>}
+        </div>
     </section>
 
     <Spacer count={2} />
@@ -61,8 +64,8 @@ const details = [
     <section class="page flex flex-col align-center text-center gap-40">
         {details.map(detail => (
             <div class="flex flex-col gap-4 fade--up" data-scroll>
-                <span class="small op-60">{detail.label}</span>
-                <span class="small uppercase">{detail.value}</span>
+                <span class="small balance">{detail.label}</span>
+                <span class="small uppercase balance">{detail.value}</span>
             </div>
         ))}
     </section>
@@ -73,7 +76,7 @@ const details = [
         <section class="page">
             <div class="flex space-between align-center">
                 <h2 class="h3">Keep Exploring</h2>
-                <a href="/projects" class="small op-60 nav-link">See All ({_allProjectsMeta.count})</a>
+                <a href="/projects" class="small nav-link balance">See All ({_allProjectsMeta.count})</a>
             </div>
             <div class="grid-4 gap-40 mt40 m-grid-1 m-gap-40">
                 {related.map(p => <ProjectCard project={p} />)}

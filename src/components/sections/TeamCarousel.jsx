@@ -11,14 +11,14 @@ export const TeamCarousel = ({ members = [] }) => {
                 <div className='team-main'>
                     {members.map((member, i) => <img key={i} className={`gallery-img${i === index ? ' is-active' : ''}`} src={member.image.responsiveImage.src} srcSet={member.image.responsiveImage.srcSet} sizes='(max-width: 768px) 90vw, 25vw' alt={member.name} loading='lazy' /> )}
                 </div>
-                <p className='small op-60 text-center w-385 mt16 m-100'>{caption}</p>
+                <p className='small text-center w-385 mt16 m-100 balance'>{caption}</p>
             </div>
             <div className='flex flex-col'>
                 <div className='flex gap-12 mta m-pt40'>
                     {members.map((member, i) => (
                         <button key={i} className={`team-thumb${i === index ? ' is-active' : ''}`} onClick={() => setIndex(i)} aria-label={member.name}>
                             <div className='team-thumb__image'><img src={member.image.responsiveImage.src} srcSet={member.image.responsiveImage.srcSet} sizes='10vw' alt={member.name} loading='lazy' /></div>
-                            <span className='small op-50 block mt6'>{String(i + 1).padStart(2, "0")}</span>
+                            <span className='small block mt6 balance'>{String(i + 1).padStart(2, "0")}</span>
                         </button>
                     ))}
                 </div>

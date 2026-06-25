@@ -7,18 +7,20 @@ import { CategoryCarousel } from "@/components/sections/CategoryCarousel.jsx"
 import TeamSection from "@/components/sections/TeamSection.astro"
 import Spacer from "@/components/blocks/Spacer.astro"
 import BgImage from "@/components/media/BgImage.astro"
+import BgMedia from "@/components/media/BgMedia.astro"
 
 const QUERY = `query {
     homepage {
         heroHeading
         heroSubtitle
+        heroImage { ${responsiveImageFragment} }
+        heroVideo
         ceHeading
         ceBody
         ceSpacers
         ceImage { ${responsiveImageFragment} }
         teamHeading
         teamBody
-        teamImage { ${responsiveImageFragment} }
         teamMembers { name role linkedinUrl image { ${responsiveImageFragment} } }
         featuredProject { title slug heroCaption heroImage { ${responsiveImageFragment} } }
     }
@@ -41,7 +43,7 @@ allProjects.forEach(p => {
 <Layout title="Chapter Two — Considered Places. Lasting Value.">
     <Hero heading={homepage.heroHeading} subtitle={homepage.heroSubtitle} />
 
-    <section class="pos-rel w-100 ratio-ocean overflow" id="featured" data-parallax data-hero-reveal><BgImage image={homepage.ceImage} sizes="100vw" /></section>
+    <section class="pos-rel w-100 ratio-ocean overflow" id="featured" data-parallax data-hero-reveal><BgMedia image={homepage.heroImage} video={homepage.heroVideo} sizes="100vw" /></section>
 
     <Spacer count={2} />
 
@@ -62,7 +64,7 @@ allProjects.forEach(p => {
 
     <Spacer count={2} />
 
-    <TeamSection heading={homepage.teamHeading} body={homepage.teamBody} image={homepage.teamImage} members={homepage.teamMembers} />
+    <TeamSection heading={homepage.teamHeading} body={homepage.teamBody} members={homepage.teamMembers} />
 
     <Spacer count={2} />
 </Layout>

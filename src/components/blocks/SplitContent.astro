@@ -6,6 +6,6 @@ const { heading, body, spacers = 1, measure = "" } = Astro.props
 
 <div class="page grid-2 gap-24 m-grid-1 m-gap-20">
     <h3 class="h3 fade--up" data-scroll>{heading}</h3>
-    <div class={`rich-text fade--up delay-1 ${measure}`.trim()} data-scroll set:html={body}></div>
+    <div class={`rich-text fade--up delay-1 balance ${measure}`.trim()} data-scroll set:html={body}></div>
 </div>
 <Spacer count={spacers} />

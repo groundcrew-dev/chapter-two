@@ -5,6 +5,6 @@ const { block } = Astro.props
 ---
 
 <section class="flex flex-col gap-20">
-    <div class="pos-rel w-100 max-1336 ma ratio-hero overflow"><BgImage image={block.image} sizes="(max-width: 768px) 90vw, 78vw" /></div>
-    {block.caption && <p class="small op-60 text-center">{block.caption}</p>}
+    <div class="pos-rel w-100 max-1336 ma ratio-hero overflow block-centered"><BgImage image={block.image} sizes="(max-width: 768px) 77vw, 78vw" /></div>
+    {block.caption && <p class="small text-center balance">{block.caption}</p>}
 </section>

@@ -20,6 +20,14 @@ function revealHeading(el) {
             scrollTrigger: { trigger: el, start: "top 92%", once: true }
         })
     })
+    if (el.hasAttribute("data-tm") && split.lines[0]) {
+        const tm = document.createElement("span")
+        tm.className = "tm"
+        tm.textContent = "TM"
+        split.lines[0].appendChild(tm)
+        gsap.set(tm, { opacity: 0 })
+        gsap.to(tm, { opacity: 1, duration: 0.7, delay: 1, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 92%", once: true } })
+    }
     el.classList.add("is-ready")
 }
 

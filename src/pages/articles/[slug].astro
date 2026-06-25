@@ -51,13 +51,13 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
             <div class="scrim"></div>
             <div class="pos-rel z-2 flex flex-col align-center gap-50 fade--up" data-scroll>
                 <h1 class="h2 max-1300 anim-heading">{article.title}</h1>
-                <div class="flex align-center gap-40"><span class="small">{article.readTime}</span><span class="small">{categoryLabel} Article</span></div>
+                <div class="flex align-center gap-40"><span class="small balance">{article.readTime}</span><span class="small balance">{categoryLabel} Article</span></div>
             </div>
         </section>
     ) : (
         <section class="page page-title short">
             <h1 class="h2 anim-heading">{article.title}</h1>
-            <div class="flex align-center justify-center gap-40 mt20"><span class="small op-60">{article.readTime}</span><span class="small op-60">{categoryLabel} Article</span></div>
+            <div class="flex align-center justify-center gap-40 mt20"><span class="small balance">{article.readTime}</span><span class="small balance">{categoryLabel} Article</span></div>
         </section>
     )}
 
@@ -67,12 +67,12 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
         <div>
             <div class="w-100 max-650 flex flex-col gap-16">
                 {imageBlock?.__typename === "GalleryBlockRecord" ? <Gallery bare client:load slides={imageBlock.slides} /> : leadImage && <div class="pos-rel ratio-portrait overflow"><BgImage image={leadImage} sizes="(max-width: 768px) 90vw, 50vw" /></div>}
-                {imageBlock?.__typename !== "GalleryBlockRecord" && leadCaption && <p class="small op-60">{leadCaption}</p>}
+                {imageBlock?.__typename !== "GalleryBlockRecord" && leadCaption && <p class="small balance">{leadCaption}</p>}
             </div>
         </div>
         <div>
             <div class="w-100 max-650">
-                <div class="rich-text indent fade--up" data-scroll set:html={bodyBlock?.body}></div>
+                <div class="rich-text indent fade--up balance" data-scroll set:html={bodyBlock?.body}></div>
             </div>
         </div>
     </section>
@@ -82,8 +82,8 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
     <div class="page grid-2 gap-24 m-grid-1">
         <div class="m-hide"></div>
         <div class="grid-2 gap-24 m-grid-1 m-gap-12">
-            <p class="small"><span class="op-60">Words by</span> <span class="uppercase">{article.wordsBy}</span></p>
-            {article.tags && <p class="small"><span class="op-60">Tags</span> <span class="uppercase">{article.tags}</span></p>}
+            <p class="small balance"><span>Words by</span> <span class="uppercase">{article.wordsBy}</span></p>
+            {article.tags && <p class="small balance"><span>Tags</span> <span class="uppercase">{article.tags}</span></p>}
         </div>
     </div>
 
@@ -93,7 +93,7 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
         <section class="page">
             <div class="flex space-between align-center">
                 <h2 class="h3">Keep Exploring</h2>
-                <a href="/articles" class="small op-60 nav-link">See All ({_allArticlesMeta.count})</a>
+                <a href="/articles" class="small nav-link balance">See All ({_allArticlesMeta.count})</a>
             </div>
             <div class="grid-2 gap-x-24 gap-y-60 mt40 m-grid-1 m-gap-40">
                 {related.map(a => <ArticleCard article={a} />)}

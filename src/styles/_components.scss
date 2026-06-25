@@ -106,6 +106,27 @@
     }
 }
 
+/* ------------ Modular Blocks ------------ */
+
+.block-centered {
+    @include mobile {
+        max-width: 77vw;
+    }
+}
+
+.block-portrait {
+    @include mobile {
+        max-width: 65vw;
+    }
+}
+
+.block-banner {
+    @include mobile {
+        height: auto;
+        aspect-ratio: 393 / 227;
+    }
+}
+
 /* ------------ Detail Hero ------------ */
 
 .detail-hero {
@@ -129,6 +150,12 @@
 
     @include mobile {
         padding-bottom: mvw(40);
+    }
+}
+
+.detail-hero .h1 {
+    @include mobile {
+        font-size: mvw(46);
     }
 }
 

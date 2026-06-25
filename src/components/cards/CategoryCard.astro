@@ -6,9 +6,9 @@ const { category, count } = Astro.props
 
 <a href={`/projects?category=${category.slug}`} class="flex flex-col gap-16 fade--up" data-scroll>
     <div class="pos-rel h-447 overflow"><BgImage image={category.image} sizes="(max-width: 768px) 90vw, 40vw" /></div>
-    <h3 class="h3">{category.title}<sup class="count">({count})</sup></h3>
+    <h3 class="h3 balance">{category.title}<sup class="count balance">({count})</sup></h3>
     <div class="flex space-between align-end gap-20">
-        <p class="small op-60">{category.shortDescription}</p>
+        <p class="small balance">{category.shortDescription}</p>
         <span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span>
     </div>
     <div class="divider"></div>

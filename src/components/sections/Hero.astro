@@ -1,15 +1,16 @@
 ---
 const { heading, subtitle } = Astro.props
-const headingHtml = (heading ?? "").replace(/\.\s+/, '.<span class="tm">TM</span><br>')
+const hasTm = /\.\s+/.test(heading ?? "")
+const headingHtml = (heading ?? "").replace(/\.\s+/, ".<br>")
 ---
 
 <section class="hero page flex flex-col justify-end h-70vh mb40 pb24">
     <div class="hero__title">
-        <h1 class="h1 small text-center w-100 mb40 anim-heading" set:html={headingHtml}></h1>
+        <h1 class="h1 small text-center w-100 mb40 anim-heading" data-tm={hasTm ? "" : undefined} set:html={headingHtml}></h1>
     </div>
-    <div class="hero__actions center-grid align-end gap-40">
+    <div class="hero__actions center-grid align-center gap-40">
         <div class="hero__play pos-rel w-72 ratio-5-4 overflow bg-teal white flex align-center justify-center" data-enter><span class="icon-play"></span></div>
-        <p class="hero__sub small op-60 measure-450 text-center justify-self-center" data-enter="0.6">{subtitle}</p>
+        <p class="hero__sub small measure-450 text-center balance justify-self-center" data-enter>{subtitle}</p>
         <a href="#featured" class="hero__arrow arrow-box dark" aria-label="Scroll down" data-enter><span class="icon-arrow-diagonal"></span></a>
     </div>
 </section>

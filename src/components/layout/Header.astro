@@ -13,7 +13,7 @@ const isActive = href => path === href || path.startsWith(href + "/")
     <div class="masthead__inner">
         <a href="/" class="logo" aria-label="Chapter Two"></a>
         <nav class="masthead__nav">
-            {links.map(link => <a href={link.href} class:list={["nav-link", "small", { "is-active": isActive(link.href) }]}>{link.label}</a>)}
+            {links.map(link => <a href={link.href} class:list={["nav-link", "small", "balance", { "is-active": isActive(link.href) }]}>{link.label}</a>)}
         </nav>
         <div class="masthead__actions">
             <button class="toggle" aria-label="Toggle theme" data-toggle><span class="toggle__knob"></span></button>

@@ -79,6 +79,8 @@
 .balance { text-wrap: balance; }
 .pretty { text-wrap: pretty; }
 .pointer { cursor: pointer; }
+.hover-fade { transition: opacity 0.35s ease; }
+.hover-fade:hover { opacity: 0.5; }
 
 /* ------------ Opacity ------------ */
 

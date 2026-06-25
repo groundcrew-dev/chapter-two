@@ -13,8 +13,8 @@ export const Gallery = ({ slides = [], bare = false }) => {
             <div className='flex space-between align-center gap-20 mt20'>
                 <button className='gallery-nav' onClick={() => go(index - 1)} aria-label='Previous slide'><span className='icon-chevron-left' /></button>
                 <div className='flex align-center gap-40 m-gap-20'>
-                    <span className='small nowrap'>{index + 1} &ndash; {slides.length}</span>
-                    {current.caption && <span className='small op-60 nowrap'>{current.caption}</span>}
+                    <span className='small nowrap balance'>{index + 1} &ndash; {slides.length}</span>
+                    {current.caption && <span className='small nowrap balance'>{current.caption}</span>}
                 </div>
                 <button className='gallery-nav' onClick={() => go(index + 1)} aria-label='Next slide'><span className='icon-chevron' /></button>
             </div>

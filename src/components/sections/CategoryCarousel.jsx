@@ -13,9 +13,9 @@ const Card = ({ category, count }) => {
                     <img className='bg-image-main' src={ri.src} srcSet={ri.srcSet} sizes='(max-width: 768px) 90vw, 40vw' width={ri.width} height={ri.height} alt={ri.alt || category.title} loading='lazy' data-img />
                 </div>
             </div>
-            <h3 className='h3'>{category.title}<sup className='count'>({count})</sup></h3>
+            <h3 className='h3'>{category.title}<sup className='count balance'>({count})</sup></h3>
             <div className='flex space-between align-end gap-20 mta'>
-                <p className='small op-60'>{category.shortDescription}</p>
+                <p className='small balance'>{category.shortDescription}</p>
                 <span className='arrow-box dark'><span className='icon-arrow-diagonal'></span></span>
             </div>
             <div className='divider'></div>
