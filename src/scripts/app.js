@@ -117,12 +117,93 @@ function initFilter() {
     apply()
 }
 
+function initAnchorScroll() {
+    if (initAnchorScroll.bound) return
+    initAnchorScroll.bound = true
+    document.addEventListener("click", e => {
+        const a = e.target.closest && e.target.closest('a[href^="#"], [data-scroll-to]')
+        if (!a) return
+        const sel = a.getAttribute("data-scroll-to") || a.getAttribute("href")
+        if (!sel || sel === "#") return
+        const target = document.querySelector(sel)
+        if (!target) return
+        e.preventDefault()
+        if (lenis) lenis.scrollTo(target, { offset: 0 })
+        else target.scrollIntoView({ behavior: "smooth" })
+    })
+}
+
+function initProjectHeader() {
+    const header = document.querySelector("[data-project-header]")
+    if (!header) {
+        initProjectHeader.update = null
+        return
+    }
+    const thumb = header.querySelector("[data-proj-thumb]")
+    const count = header.querySelector("[data-proj-count]")
+    const nav = header.querySelector("[data-proj-nav]")
+    const sections = Array.from(document.querySelectorAll("[data-img-section]"))
+    initProjectHeader.sections = sections
+    initProjectHeader.current = -1
+
+    const imgOf = sec => {
+        const img = sec.querySelector(".gallery-img.is-active") || sec.querySelector(".bg-image-main, img")
+        return img ? img.currentSrc || img.src : ""
+    }
+    const paint = () => {
+        const i = initProjectHeader.current
+        if (i < 0 || !sections[i]) return
+        const src = imgOf(sections[i])
+        if (thumb && src && thumb.src !== src) thumb.src = src
+    }
+    const setCurrent = i => {
+        if (i < 0) return
+        if (i !== initProjectHeader.current) {
+            initProjectHeader.current = i
+            if (count) count.textContent = sections.length ? `${i + 1} / ${sections.length}` : ""
+        }
+        paint()
+    }
+    initProjectHeader.update = () => {
+        if (!document.querySelector("[data-project-header]") || !sections.length) return
+        const mid = window.innerHeight * 0.4
+        let idx = 0
+        sections.forEach((sec, i) => {
+            if (sec.getBoundingClientRect().top <= mid) idx = i
+        })
+        setCurrent(idx)
+    }
+    initProjectHeader.update()
+
+    if (nav && !nav.dataset.bound) {
+        nav.dataset.bound = "1"
+        nav.addEventListener("click", () => {
+            const secs = initProjectHeader.sections || []
+            if (!secs.length) return
+            const next = (initProjectHeader.current + 1) % secs.length
+            if (lenis) lenis.scrollTo(secs[next], { offset: 0 })
+            else secs[next].scrollIntoView({ behavior: "smooth" })
+        })
+    }
+
+    if (!initProjectHeader.bound) {
+        initProjectHeader.bound = true
+        const tick = () => initProjectHeader.update && initProjectHeader.update()
+        if (lenis) lenis.on("scroll", tick)
+        window.addEventListener("scroll", tick, { passive: true })
+        window.addEventListener("resize", tick)
+        window.addEventListener("gallery-change", tick)
+    }
+}
+
 function initPage() {
     initFooterReveal()
     initHeaderTheme()
     initThemeToggle()
     initImages()
     initFilter()
+    initAnchorScroll()
+    initProjectHeader()
 }
 
 initLenis()

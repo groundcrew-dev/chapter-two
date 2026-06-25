@@ -1,12 +1,6 @@
-/*--------------------------------------------------------------
-## Shared Components
---------------------------------------------------------------*/
-
 @use "variables" as *;
 @use "sass:map";
 @use "sass:math";
-
-/* ------------ Spacer ------------ */
 
 .spacer {
     width: 100%;
@@ -17,15 +11,43 @@
     }
 }
 
-/* ------------ Divider ------------ */
-
 .divider {
     width: 100%;
     height: 1px;
     background-color: var(--c-line);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s ease 0.15s;
 }
 
-/* ------------ Scrim ------------ */
+.card > :not(:first-child):not(.divider) {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.card.active > :not(:first-child):not(.divider) {
+    opacity: 1;
+}
+
+.card.active .divider {
+    transform: scaleX(1);
+}
+
+.card:hover .divider {
+    transition-delay: 0s;
+}
+
+.card.active:hover .divider {
+    transform: scaleX(0);
+}
+
+.card .bg-image-main {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.card:hover .bg-image-main {
+    transform: scale(1.05);
+}
 
 .scrim {
     position: absolute;
@@ -38,8 +60,6 @@
     inset: 0;
     background-color: rgba(0, 0, 0, 0.4);
 }
-
-/* ------------ Rich Text (CMS HTML) ------------ */
 
 .rich-text {
     display: flex;
@@ -80,8 +100,6 @@
     }
 }
 
-/* ------------ Arrow Button ------------ */
-
 .arrow-button {
     display: flex;
     align-items: center;
@@ -106,8 +124,6 @@
     }
 }
 
-/* ------------ Modular Blocks ------------ */
-
 .block-centered {
     @include mobile {
         max-width: 77vw;
@@ -126,8 +142,6 @@
         aspect-ratio: 393 / 227;
     }
 }
-
-/* ------------ Detail Hero ------------ */
 
 .detail-hero {
     position: relative;
@@ -159,10 +173,8 @@
     }
 }
 
-/* ------------ Page Title ------------ */
-
 .page-title {
-    min-height: 70svh;
+    min-height: 30svh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -223,8 +235,6 @@
     }
 }
 
-/* ------------ Number Box ------------ */
-
 .arrow-box {
     flex-shrink: 0;
     box-sizing: border-box;
@@ -246,19 +256,17 @@
 
 a:hover .arrow-box,
 .arrow-box:hover {
-    background-color: var(--c-arrow-bg);
+    background-color: transparent;
     color: var(--c-arrow-fg);
     border-color: var(--c-arrow-fg);
 }
 
 a:hover .arrow-box.dark,
 .arrow-box.dark:hover {
-    background-color: var(--c-arrow-fg);
+    background-color: transparent;
     color: var(--c-arrow-bg);
     border-color: var(--c-arrow-bg);
 }
-
-/* ------------ Filter Bar ------------ */
 
 .filter-bar {
     display: flex;
@@ -279,29 +287,32 @@ a:hover .arrow-box.dark,
     text-underline-offset: 0.25em;
 }
 
-/* ------------ Trademark ------------ */
-
 .tm {
     font-size: 0.08em;
     vertical-align: baseline;
     letter-spacing: 0;
 }
 
-/* ------------ Superscript Count ------------ */
-
 .count {
     font-family: $font-small;
-    font-size: 0.4em;
+    font-size: 0.85em;
     line-height: 1;
-    vertical-align: top;
     letter-spacing: 0;
-    margin-left: 0.25em;
+    margin-left: 3px;
 }
-
-/* ------------ Article Card ------------ */
 
 .article-card__title {
     line-height: 1;
+}
+
+.article-card__text .divider {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    @include mobile {
+        display: none;
+    }
 }
 
 .meta-val {

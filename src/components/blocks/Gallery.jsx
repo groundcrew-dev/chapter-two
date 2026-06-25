@@ -1,7 +1,10 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 export const Gallery = ({ slides = [], bare = false }) => {
     const [index, setIndex] = useState(0)
+    useEffect(() => {
+        window.dispatchEvent(new CustomEvent("gallery-change"))
+    }, [index])
     if (!slides.length) return null
     const go = i => setIndex((i + slides.length) % slides.length)
     const current = slides[index]
@@ -21,5 +24,5 @@ export const Gallery = ({ slides = [], bare = false }) => {
         </div>
     )
     if (bare) return inner
-    return <section className='page page-y flex flex-col align-center'>{inner}</section>
+    return <section className='page page-y flex flex-col align-center' data-img-section="">{inner}</section>
 }

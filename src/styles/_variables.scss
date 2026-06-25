@@ -1,17 +1,9 @@
-/*--------------------------------------------------------------
-## Variables, Maps & Mixins
---------------------------------------------------------------*/
-
 @use "functions" as *;
 @forward "functions";
-
-/* ------------ Fonts ------------ */
 
 $font-sans: "Maison Neue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-serif: "Season Serif", Georgia, "Times New Roman", serif;
 $font-small: "Season Serif", Georgia, "Times New Roman", serif;
-
-/* ------------ Colours ------------ */
 
 $colors: (
     "white": #ffffff,
@@ -22,8 +14,6 @@ $colors: (
     "line": rgba(57, 51, 41, 0.15),
     "teal": #1d5b57
 );
-
-/* ------------ Spacing & Gaps ------------ */
 
 $spacings: (
     4: 4,
@@ -81,8 +71,6 @@ $max-widths: (
     1336: 1336,
     1600: 1600
 );
-
-/* ------------ Mixins ------------ */
 
 @mixin icon($url, $size: contain) {
     background-image: url($url);

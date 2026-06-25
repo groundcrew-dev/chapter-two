@@ -1,13 +1,14 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { FreeMode } from "swiper/modules"
+import { htmlToText } from "@/lib/html"
 import "swiper/css"
 import "swiper/css/free-mode"
 
 const Card = ({ category, count }) => {
     const ri = category.image.responsiveImage
     return (
-        <a href={`/projects?category=${category.slug}`} className='flex flex-col gap-20 h-100'>
+        <a href={`/projects?category=${category.slug}`} className='card flex flex-col gap-20 h-100' data-scroll>
             <div className='pos-rel category-card__img overflow'>
                 <div className='bg-image-wrapper' style={{ "--blur": `url(${ri.base64})` }}>
                     <img className='bg-image-main' src={ri.src} srcSet={ri.srcSet} sizes='(max-width: 768px) 90vw, 40vw' width={ri.width} height={ri.height} alt={ri.alt || category.title} loading='lazy' data-img />
@@ -15,7 +16,7 @@ const Card = ({ category, count }) => {
             </div>
             <h3 className='h3'>{category.title}<sup className='count balance'>({count})</sup></h3>
             <div className='flex space-between align-end gap-20 mta'>
-                <p className='small balance'>{category.shortDescription}</p>
+                <p className='small balance'>{htmlToText(category.shortDescription)}</p>
                 <span className='arrow-box dark'><span className='icon-arrow-diagonal'></span></span>
             </div>
             <div className='divider'></div>

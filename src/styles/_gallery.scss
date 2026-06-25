@@ -1,8 +1,15 @@
-/*--------------------------------------------------------------
-## Gallery
---------------------------------------------------------------*/
-
 @use "variables" as *;
+
+.news-gallery {
+    position: sticky;
+    top: calc(var(--header-h) + 20px);
+    align-self: flex-start;
+
+    @include mobile {
+        position: static;
+        top: auto;
+    }
+}
 
 .gallery-img {
     position: absolute;

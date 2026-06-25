@@ -1,5 +1,6 @@
 ---
 import CenteredImage from "@/components/blocks/CenteredImage.astro"
+import SmallCenteredImage from "@/components/blocks/SmallCenteredImage.astro"
 import FullBanner from "@/components/blocks/FullBanner.astro"
 import PortraitImage from "@/components/blocks/PortraitImage.astro"
 import SplitContent from "@/components/blocks/SplitContent.astro"
@@ -13,6 +14,7 @@ const { blocks = [] } = Astro.props
     <>
         {i > 0 && <Spacer count={2} />}
         {block.__typename === "CenteredImageBlockRecord" && <CenteredImage block={block} />}
+        {block.__typename === "SmallCenteredImageBlockRecord" && <SmallCenteredImage block={block} />}
         {block.__typename === "FullBannerBlockRecord" && <FullBanner block={block} />}
         {block.__typename === "PortraitImageBlockRecord" && <PortraitImage block={block} />}
         {block.__typename === "OverviewBlockRecord" && <SplitContent heading={block.heading || "Overview"} body={block.body} spacers={0} />}

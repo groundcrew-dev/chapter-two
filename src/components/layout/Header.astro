@@ -7,16 +7,41 @@ const links = [
     { label: "Contact", href: "/contact" }
 ]
 const isActive = href => path === href || path.startsWith(href + "/")
+const isProjectDetail = /^\/projects\/[^/]+\/?$/.test(path)
 ---
 
-<header class="masthead" data-header>
-    <div class="masthead__inner">
-        <a href="/" class="logo" aria-label="Chapter Two"></a>
-        <nav class="masthead__nav">
-            {links.map(link => <a href={link.href} class:list={["nav-link", "small", "balance", { "is-active": isActive(link.href) }]}>{link.label}</a>)}
-        </nav>
-        <div class="masthead__actions">
-            <button class="toggle" aria-label="Toggle theme" data-toggle><span class="toggle__knob"></span></button>
-        </div>
-    </div>
-</header>
+{
+    isProjectDetail ? (
+        <header class="masthead masthead--project" data-header data-project-header>
+            <div class="masthead__project">
+                <button type="button" class="proj-nav" data-proj-nav aria-label="Jump to next image">
+                    <span class="proj-nav__thumb pos-rel overflow">
+                        <img data-proj-thumb alt="" />
+                    </span>
+                    <span class="proj-nav__count small" data-proj-count></span>
+                </button>
+                <a href="/projects" class="arrow-box" aria-label="Back to projects">
+                    <span class="icon-close" />
+                </a>
+            </div>
+        </header>
+    ) : (
+        <header class="masthead" data-header>
+            <div class="masthead__inner">
+                <a href="/" class="logo" aria-label="Chapter Two" />
+                <nav class="masthead__nav">
+                    {links.map(link => (
+                        <a href={link.href} class:list={["nav-link", "small", "balance", { "is-active": isActive(link.href) }]}>
+                            {link.label}
+                        </a>
+                    ))}
+                </nav>
+                <div class="masthead__actions">
+                    <button class="toggle" aria-label="Toggle theme" data-toggle>
+                        <span class="toggle__knob" />
+                    </button>
+                </div>
+            </div>
+        </header>
+    )
+}

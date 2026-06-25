@@ -1,11 +1,5 @@
-/*--------------------------------------------------------------
-## Homepage
---------------------------------------------------------------*/
-
 @use "variables" as *;
 @use "sass:map";
-
-/* ------------ Hero ------------ */
 
 .hero {
     @include mobile {
@@ -44,21 +38,36 @@
 }
 
 .hero__sub {
+    white-space: nowrap;
+
     @include mobile {
         order: -1;
         max-width: 100%;
+        white-space: normal;
     }
 }
 
 .hero__play {
+    width: s(65);
+    aspect-ratio: 7 / 4;
+    color: #ffffff;
+    cursor: pointer;
+
     @include mobile {
         display: none;
     }
 }
 
+.hero__play-icon {
+    position: relative;
+    z-index: 2;
+    width: s(8);
+    height: s(8);
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.45));
+}
+
 .hero__arrow {
     justify-self: end;
-    align-self: flex-end;
 
     @include mobile {
         display: flex;
@@ -66,15 +75,11 @@
     }
 }
 
-/* ------------ Featured Banner ------------ */
-
 #featured {
     @include mobile {
         aspect-ratio: 393 / 567;
     }
 }
-
-/* ------------ Category Cards ------------ */
 
 .category-carousel {
     overflow: hidden;
@@ -134,8 +139,6 @@
     vertical-align: super;
     letter-spacing: 0;
 }
-
-/* ------------ Team Carousel ------------ */
 
 .team-main {
     position: relative;

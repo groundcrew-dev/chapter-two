@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { fetchData, responsiveImageFragment } from "@/lib/datocms"
+import { cleanHtml } from "@/lib/html"
 import ArticleCard from "@/components/cards/ArticleCard.astro"
 import Spacer from "@/components/blocks/Spacer.astro"
 import BgMedia from "@/components/media/BgMedia.astro"
@@ -64,7 +65,7 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
     <Spacer count={2} />
 
     <section class="page grid-2 gap-60 m-grid-1 m-gap-40">
-        <div>
+        <div class="news-gallery">
             <div class="w-100 max-650 flex flex-col gap-16">
                 {imageBlock?.__typename === "GalleryBlockRecord" ? <Gallery bare client:load slides={imageBlock.slides} /> : leadImage && <div class="pos-rel ratio-portrait overflow"><BgImage image={leadImage} sizes="(max-width: 768px) 90vw, 50vw" /></div>}
                 {imageBlock?.__typename !== "GalleryBlockRecord" && leadCaption && <p class="small balance">{leadCaption}</p>}
@@ -72,7 +73,7 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
         </div>
         <div>
             <div class="w-100 max-650">
-                <div class="rich-text indent fade--up balance" data-scroll set:html={bodyBlock?.body}></div>
+                <div class="rich-text indent fade--up balance" data-scroll set:html={cleanHtml(bodyBlock?.body)}></div>
             </div>
         </div>
     </section>

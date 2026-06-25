@@ -1,14 +1,8 @@
-/*--------------------------------------------------------------
-## Icons
---------------------------------------------------------------*/
-
 @use "variables" as *;
-
-/* ------------ Logo ------------ */
 
 .logo {
     display: block;
-    width: vw(118);
+    width: vw(138);
     aspect-ratio: 118 / 11.93;
     background-color: currentColor;
     -webkit-mask: url("/icons/logo.svg") no-repeat center / contain;
@@ -18,8 +12,6 @@
         width: mvw(86);
     }
 }
-
-/* ------------ Mask Icons ------------ */
 
 .icon-instagram {
     @include icon-mask("/icons/instagram.svg", s(18), s(18));
@@ -58,4 +50,8 @@
 
 .icon-play {
     @include icon-mask("/icons/play.svg", s(10), s(12));
+}
+
+.icon-close {
+    @include icon-mask("/icons/close.svg", s(10), s(10));
 }

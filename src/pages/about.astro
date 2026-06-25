@@ -35,17 +35,21 @@ const headingHtml = (aboutPage.heroHeading ?? "").replace(/\.\s+/g, ".<br>")
     <SplitContent heading={aboutPage.sectionTitle} body={aboutPage.body} spacers={2} />
 
     <section class="page grid-4 gap-40 m-grid-1 m-gap-40">
-        {aboutPage.teamMembers.map(member => (
-            <div class="flex flex-col gap-20 fade--up" data-scroll>
-                <div class="pos-rel ratio-card overflow"><BgImage image={member.image} sizes="(max-width: 768px) 45vw, 22vw" /></div>
-                <h3 class="h3">{member.name}</h3>
-                <div class="flex space-between align-center gap-16 mta">
-                    <span class="small balance">{member.role}</span>
-                    {member.linkedinUrl && <a href={member.linkedinUrl} target="_blank" rel="noreferrer" class="small flex align-center gap-8 balance">LinkedIn<span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span></a>}
-                </div>
-                <div class="divider"></div>
-            </div>
-        ))}
+        {aboutPage.teamMembers.map(member => {
+            const Card = member.linkedinUrl ? "a" : "div"
+            const linkAttrs = member.linkedinUrl ? { href: member.linkedinUrl, target: "_blank", rel: "noreferrer" } : {}
+            return (
+                <Card class="card flex flex-col gap-12" data-scroll {...linkAttrs}>
+                    <div class="pos-rel ratio-card overflow"><BgImage image={member.image} sizes="(max-width: 768px) 45vw, 22vw" /></div>
+                    <h3 class="h3" style="margin-block: 10px">{member.name}</h3>
+                    <div class="flex space-between align-center gap-16 mta">
+                        <span class="small balance">{member.role}</span>
+                        {member.linkedinUrl && <span class="small flex align-center gap-8 balance">LinkedIn<span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span></span>}
+                    </div>
+                    <div class="divider"></div>
+                </Card>
+            )
+        })}
     </section>
 
     <Spacer count={2} />

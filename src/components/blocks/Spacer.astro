@@ -1,5 +1,5 @@
 ---
-const { count = 1 } = Astro.props
+const { count = 1, class: className } = Astro.props
 ---
 
-{Array.from({ length: count }).map(() => <div class="spacer"></div>)}
+{Array.from({ length: count }).map(() => <div class:list={["spacer", className]}></div>)}

@@ -1,5 +1,7 @@
 ---
-const { heading, subtitle } = Astro.props
+import BgMedia from "@/components/media/BgMedia.astro"
+
+const { heading, subtitle, image, video } = Astro.props
 const hasTm = /\.\s+/.test(heading ?? "")
 const headingHtml = (heading ?? "").replace(/\.\s+/, ".<br>")
 ---
@@ -9,8 +11,11 @@ const headingHtml = (heading ?? "").replace(/\.\s+/, ".<br>")
         <h1 class="h1 small text-center w-100 mb40 anim-heading" data-tm={hasTm ? "" : undefined} set:html={headingHtml}></h1>
     </div>
     <div class="hero__actions center-grid align-center gap-40">
-        <div class="hero__play pos-rel w-72 ratio-5-4 overflow bg-teal white flex align-center justify-center" data-enter><span class="icon-play"></span></div>
-        <p class="hero__sub small measure-450 text-center balance justify-self-center" data-enter>{subtitle}</p>
-        <a href="#featured" class="hero__arrow arrow-box dark" aria-label="Scroll down" data-enter><span class="icon-arrow-diagonal"></span></a>
+        <a href="#featured" class="hero__play pos-rel overflow flex align-center justify-center" aria-label="Scroll to featured project" data-enter>
+            <BgMedia image={image} video={video} sizes="65px" />
+            <span class="hero__play-icon icon-play"></span>
+        </a>
+        <p class="hero__sub small text-center justify-self-center" data-enter>{subtitle}</p>
+        <a href="/projects" class="hero__arrow arrow-box dark" aria-label="View projects" data-enter><span class="icon-arrow-diagonal"></span></a>
     </div>
 </section>

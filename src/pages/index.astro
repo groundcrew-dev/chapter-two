@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro"
 import { fetchData, responsiveImageFragment } from "@/lib/datocms"
+import { cleanHtml } from "@/lib/html"
 import Hero from "@/components/sections/Hero.astro"
 import FeaturedProject from "@/components/sections/FeaturedProject.astro"
 import { CategoryCarousel } from "@/components/sections/CategoryCarousel.jsx"
@@ -41,18 +42,18 @@ allProjects.forEach(p => {
 ---
 
 <Layout title="Chapter Two — Considered Places. Lasting Value.">
-    <Hero heading={homepage.heroHeading} subtitle={homepage.heroSubtitle} />
+    <Hero heading={homepage.heroHeading} subtitle={homepage.heroSubtitle} image={homepage.heroImage} video={homepage.heroVideo} />
 
     <section class="pos-rel w-100 ratio-ocean overflow" id="featured" data-parallax data-hero-reveal><BgMedia image={homepage.heroImage} video={homepage.heroVideo} sizes="100vw" /></section>
 
-    <Spacer count={2} />
+    <Spacer count={1} />
 
     <div class="page grid-2 gap-24 m-grid-1 m-gap-20">
         <p class="h3 fade--up" data-scroll>{homepage.ceHeading}</p>
-        <div class="rich-text fade--up delay-1" data-scroll set:html={homepage.ceBody}></div>
+        <div class="rich-text fade--up delay-1" data-scroll set:html={cleanHtml(homepage.ceBody)}></div>
     </div>
 
-    <Spacer count={2} />
+    <Spacer count={1} />
 
     <section class="category-carousel">
         <CategoryCarousel client:load categories={categories} counts={counts} />
@@ -62,9 +63,9 @@ allProjects.forEach(p => {
 
     {homepage.featuredProject && <FeaturedProject project={homepage.featuredProject} />}
 
-    <Spacer count={2} />
+    <Spacer count={1} />
 
     <TeamSection heading={homepage.teamHeading} body={homepage.teamBody} members={homepage.teamMembers} />
 
-    <Spacer count={2} />
+    <Spacer count={1} />
 </Layout>

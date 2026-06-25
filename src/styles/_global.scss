@@ -1,19 +1,15 @@
-/*--------------------------------------------------------------
-## Global Utilities
---------------------------------------------------------------*/
-
 @use "variables" as *;
 @use "sass:map";
 
 :root {
     --vwb: #{$design-desktop};
+    --header-h: #{vw(78)};
 
     @include mobile {
         --vwb: #{$design-mobile};
+        --header-h: #{mvw(64)};
     }
 }
-
-/* ------------ Flex ------------ */
 
 .flex { display: flex; }
 .inline-flex { display: inline-flex; }
@@ -31,21 +27,15 @@
 .justify-end { justify-content: flex-end; }
 .space-between { justify-content: space-between; }
 
-/* ------------ Grid ------------ */
-
 .grid { display: grid; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); }
 .center-grid { display: grid; grid-template-columns: 1fr auto 1fr; }
 
-/* ------------ Display ------------ */
-
 .block { display: block; }
 .inline-block { display: inline-block; }
 .hide { display: none; }
-
-/* ------------ Position ------------ */
 
 .pos-rel { position: relative; }
 .pos-abs { position: absolute; }
@@ -55,8 +45,6 @@
 .z-1 { z-index: 1; }
 .z-2 { z-index: 2; }
 .z-10 { z-index: 10; }
-
-/* ------------ Sizing ------------ */
 
 .w-100 { width: 100%; }
 .w-50 { width: 50%; }
@@ -69,8 +57,6 @@
 .overflow { overflow: hidden; }
 .overflow-x { overflow-x: auto; }
 
-/* ------------ Text ------------ */
-
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
@@ -82,13 +68,9 @@
 .hover-fade { transition: opacity 0.35s ease; }
 .hover-fade:hover { opacity: 0.5; }
 
-/* ------------ Opacity ------------ */
-
 @each $o in 0, 20, 30, 40, 50, 60, 100 {
     .op-#{$o} { opacity: calc($o / 100); }
 }
-
-/* ------------ Colours ------------ */
 
 @each $name, $val in $colors {
     .bg-#{$name} { background-color: $val; }
@@ -96,13 +78,9 @@
 }
 .white { color: #ffffff; }
 
-/* ------------ Borders ------------ */
-
 .border-b { border-bottom: 1px solid var(--c-line); }
 .border-t { border-top: 1px solid var(--c-line); }
 .border-t-strong { border-top: 1px solid var(--c-text); }
-
-/* ------------ Aspect Ratios ------------ */
 
 .ratio-1-1 { aspect-ratio: 1 / 1; }
 .ratio-16-9 { aspect-ratio: 16 / 9; }
@@ -119,15 +97,11 @@
 .ratio-team { aspect-ratio: 87 / 105; }
 .ratio-team-wide { aspect-ratio: 546 / 385; }
 
-/* ------------ Gap ------------ */
-
 @each $key, $val in $gaps {
     .gap-#{$key} { gap: s($val); }
     .gap-x-#{$key} { column-gap: s($val); }
     .gap-y-#{$key} { row-gap: s($val); }
 }
-
-/* ------------ Margin ------------ */
 
 @each $key, $val in $spacings {
     @if $val == auto {
@@ -147,8 +121,6 @@
     }
 }
 
-/* ------------ Padding ------------ */
-
 @each $key, $val in $spacings {
     @if $val != auto {
         .p#{$key} { padding: s($val); }
@@ -161,26 +133,18 @@
     }
 }
 
-/* ------------ Max Width ------------ */
-
 @each $key, $val in $max-widths {
     .max-#{$key} { max-width: s($val); }
 }
-
-/* ------------ Width / Height (scaled) ------------ */
 
 @each $v in 56, 72, 87, 105, 118, 200, 250, 300, 350, 372, 385, 386, 420, 447, 500, 546, 600, 656, 700, 752, 792, 800, 900, 1000, 1138, 1300, 1336 {
     .w-#{$v} { width: s($v); }
     .h-#{$v} { height: s($v); }
 }
 
-/* ------------ Fixed Text Measures (absolute px, do not scale) ------------ */
-
 @each $v in 380, 420, 450, 500, 560, 634, 656, 680 {
     .measure-#{$v} { max-width: #{$v}px; }
 }
-
-/* ------------ Self Alignment ------------ */
 
 .justify-self-start { justify-self: start; }
 .justify-self-center { justify-self: center; }
@@ -190,8 +154,6 @@
 .self-end { align-self: flex-end; }
 .shrink-0 { flex-shrink: 0; }
 .grow { flex-grow: 1; }
-
-/* ------------ Page Padding (divergent 60 / 20) ------------ */
 
 .page {
     padding-inline: vw(60);
@@ -208,8 +170,6 @@
         padding-block: mvw(20);
     }
 }
-
-/* ------------ Mobile Utilities ------------ */
 
 .m-show { display: none; }
 

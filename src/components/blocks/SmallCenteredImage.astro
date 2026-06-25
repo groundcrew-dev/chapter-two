@@ -1,0 +1,11 @@
+---
+import BgImage from "@/components/media/BgImage.astro"
+
+const { block } = Astro.props
+---
+
+<section class="page page-y flex flex-col align-center" data-img-section>
+    <div class="max-800 w-100 ma">
+        <div class="pos-rel overflow ratio-card"><BgImage image={block.image} sizes="(max-width: 768px) 90vw, 40vw" /></div>
+    </div>
+</section>
