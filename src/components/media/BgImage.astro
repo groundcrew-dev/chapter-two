@@ -5,4 +5,4 @@ const fp = focalPoint ?? image?.focalPoint
 const position = fp ? `${fp.x * 100}% ${fp.y * 100}%` : "center"
 ---
 
-{ri && <div class="bg-image-wrapper" style={`--blur:url(${ri.base64})`}><img class="bg-image-main" src={ri.src} srcset={ri.srcSet} sizes={sizes ?? ri.sizes} width={ri.width} height={ri.height} alt={ri.alt ?? ""} style={`object-position:${position}`} data-img /></div>}
+{ri && <div class="bg-image-wrapper" style={`--blur:url(${ri.base64})`}><img class="bg-image-main" src={ri.src} srcset={ri.srcSet} sizes={sizes ?? ri.sizes} width={ri.width} height={ri.height} alt={ri.alt ?? ""} loading="lazy" style={`object-position:${position}`} data-img /></div>}
