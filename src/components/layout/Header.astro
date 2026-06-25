@@ -1,21 +1,22 @@
 ---
+const path = Astro.url.pathname
 const links = [
     { label: "Portfolio", href: "/projects" },
     { label: "About", href: "/about" },
     { label: "News", href: "/articles" },
     { label: "Contact", href: "/contact" }
 ]
+const isActive = href => path === href || path.startsWith(href + "/")
 ---
 
 <header class="masthead" data-header>
     <div class="masthead__inner">
         <a href="/" class="logo" aria-label="Chapter Two"></a>
         <nav class="masthead__nav">
-            {links.map(link => <a href={link.href} class="nav-link small">{link.label}</a>)}
+            {links.map(link => <a href={link.href} class:list={["nav-link", "small", { "is-active": isActive(link.href) }]}>{link.label}</a>)}
         </nav>
         <div class="masthead__actions">
             <button class="toggle" aria-label="Toggle theme" data-toggle><span class="toggle__knob"></span></button>
-            <button class="menu-toggle" aria-label="Menu" data-menu-toggle><span></span><span></span></button>
         </div>
     </div>
 </header>

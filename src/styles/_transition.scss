@@ -26,6 +26,10 @@ html.is-transitioning body {
     background-color: #36322c;
 }
 
+html.theme-dark::view-transition {
+    background-color: #ffffff;
+}
+
 ::view-transition-group(root) {
     animation-duration: 0.7s;
     animation-timing-function: var(--pt-ease);

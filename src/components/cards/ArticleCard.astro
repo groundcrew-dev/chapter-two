@@ -7,13 +7,13 @@ const mins = article.readTime?.match(/\d+/)?.[0]
 const readShort = mins ? `${mins} Min${mins === "1" ? "" : "s"}` : article.readTime
 ---
 
-<a href={`/articles/${article.slug}`} class="article-card grid-2 gap-20 align-stretch fade--up" data-scroll data-category={article.category} data-status="all">
-    <div class="pos-rel ratio-article overflow"><BgImage image={article.listingImage} sizes="(max-width: 768px) 45vw, 22vw" /></div>
-    <div class="flex flex-col space-between border-t-strong border-b py16">
-        <h3 class="h3">{article.title}</h3>
-        <div class="flex space-between align-center gap-16">
-            <span class="small"><span class="op-60">Article</span> <span class="uppercase">{categoryLabel}</span></span>
-            <span class="small"><span class="op-60">Read</span> <span class="uppercase">{readShort}</span></span>
+<a href={`/articles/${article.slug}`} class="article-card grid-2 gap-20 align-stretch m-grid-1 m-gap-16 fade--up" data-scroll data-category={article.category} data-status="all">
+    <div class="article-card__img pos-rel ratio-article overflow"><BgImage image={article.listingImage} sizes="(max-width: 768px) 90vw, 22vw" /></div>
+    <div class="article-card__text flex flex-col space-between border-t-strong border-b py16">
+        <h3 class="article-card__title h3">{article.title}</h3>
+        <div class="article-card__meta flex space-between align-center gap-16">
+            <span class="small"><span class="op-60">Article</span> <span class="meta-val">{categoryLabel}</span></span>
+            <span class="small"><span class="op-60">Read</span> <span class="meta-val">{readShort}</span></span>
             <span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span>
         </div>
     </div>

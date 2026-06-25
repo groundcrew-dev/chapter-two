@@ -43,32 +43,26 @@ function initFooterReveal() {
 }
 
 function initHeaderTheme() {
-    const header = document.querySelector("[data-header]")
-    if (!header) return
     const line = 40
-
-    const main = document.querySelector("[data-main]")
-    const update = () => {
-        const darks = document.querySelectorAll("[data-dark]")
+    const run = () => {
+        const header = document.querySelector("[data-header]")
+        if (!header) return
+        const main = document.querySelector("[data-main]")
         let light = false
-        darks.forEach(el => {
+        document.querySelectorAll("[data-dark]").forEach(el => {
             const rect = el.getBoundingClientRect()
             if (rect.top <= line && rect.bottom >= line) light = true
         })
         if (main && main.getBoundingClientRect().bottom <= line) light = true
         header.classList.toggle("is-light", light)
     }
-
-    update()
-    if (lenis) lenis.on("scroll", update)
-    window.addEventListener("scroll", update, { passive: true })
-    window.addEventListener("resize", update)
-}
-
-function initMenuToggle() {
-    const toggle = document.querySelector("[data-menu-toggle]")
-    if (!toggle) return
-    toggle.addEventListener("click", () => document.body.classList.toggle("menu-open"))
+    if (!initHeaderTheme.bound) {
+        initHeaderTheme.bound = true
+        if (lenis) lenis.on("scroll", run)
+        window.addEventListener("scroll", run, { passive: true })
+        window.addEventListener("resize", run)
+    }
+    run()
 }
 
 function initThemeToggle() {
@@ -126,7 +120,6 @@ function initFilter() {
 function initPage() {
     initFooterReveal()
     initHeaderTheme()
-    initMenuToggle()
     initThemeToggle()
     initImages()
     initFilter()

@@ -63,19 +63,25 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
 
     <Spacer count={2} />
 
-    <section class="page article-body">
-        <div class="flex flex-col gap-16">
-            {imageBlock?.__typename === "GalleryBlockRecord" ? <Gallery bare client:load slides={imageBlock.slides} /> : leadImage && <div class="pos-rel ratio-portrait overflow"><BgImage image={leadImage} sizes="(max-width: 768px) 90vw, 40vw" /></div>}
-            {imageBlock?.__typename !== "GalleryBlockRecord" && leadCaption && <p class="small op-60">{leadCaption}</p>}
+    <section class="page grid-2 gap-60 m-grid-1 m-gap-40">
+        <div>
+            <div class="w-100 max-650 flex flex-col gap-16">
+                {imageBlock?.__typename === "GalleryBlockRecord" ? <Gallery bare client:load slides={imageBlock.slides} /> : leadImage && <div class="pos-rel ratio-portrait overflow"><BgImage image={leadImage} sizes="(max-width: 768px) 90vw, 50vw" /></div>}
+                {imageBlock?.__typename !== "GalleryBlockRecord" && leadCaption && <p class="small op-60">{leadCaption}</p>}
+            </div>
         </div>
-        <div class="rich-text indent fade--up" data-scroll set:html={bodyBlock?.body}></div>
+        <div>
+            <div class="w-100 max-650">
+                <div class="rich-text indent fade--up" data-scroll set:html={bodyBlock?.body}></div>
+            </div>
+        </div>
     </section>
 
     <Spacer count={1} />
 
     <div class="page grid-2 gap-24 m-grid-1">
         <div class="m-hide"></div>
-        <div class="grid-2 gap-24 m-gap-8">
+        <div class="grid-2 gap-24 m-grid-1 m-gap-12">
             <p class="small"><span class="op-60">Words by</span> <span class="uppercase">{article.wordsBy}</span></p>
             {article.tags && <p class="small"><span class="op-60">Tags</span> <span class="uppercase">{article.tags}</span></p>}
         </div>

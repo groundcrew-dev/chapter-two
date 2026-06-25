@@ -27,10 +27,13 @@
     height: s(36);
     border-radius: s(8);
     border: 1px solid var(--c-line);
+    color: var(--c-text);
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 
     &:hover {
+        background-color: var(--c-text);
         border-color: var(--c-text);
+        color: var(--c-bg);
     }
 }

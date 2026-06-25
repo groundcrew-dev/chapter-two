@@ -120,7 +120,11 @@ export function initAnimations(lenis) {
     document.addEventListener("astro:before-swap", event => {
         pendingTransition = event.viewTransition
         root.classList.add("is-transitioning")
-        if (root.classList.contains("theme-dark") && event.newDocument) event.newDocument.documentElement.classList.add("theme-dark")
+        if (event.newDocument) {
+            if (root.classList.contains("theme-dark")) event.newDocument.documentElement.classList.add("theme-dark")
+            const hr = event.newDocument.querySelector("[data-hero-reveal]")
+            if (hr) hr.style.opacity = "0"
+        }
     })
     document.addEventListener("astro:after-swap", () => {
         window.scrollTo(0, 0)
@@ -138,6 +142,11 @@ export function initAnimations(lenis) {
             const target = parseFloat(el.dataset.enter) || 1
             gsap.fromTo(el, { opacity: 0, y: 14 }, { opacity: target, y: 0, duration: 0.7, delay: 0.7 + i * 0.12, ease: "power2.out" })
         })
+        const heroReveal = document.querySelector("[data-hero-reveal]")
+        if (heroReveal && !heroReveal.dataset.entered) {
+            heroReveal.dataset.entered = "1"
+            gsap.fromTo(heroReveal, { opacity: 0 }, { opacity: 1, duration: 0.9, delay: 0.7 + secondary.length * 0.12 + 0.45, ease: "power2.out" })
+        }
         gsap.delayedCall(secondary.length ? 1.4 : 0.6, () => {
             initFades()
             initPeel()

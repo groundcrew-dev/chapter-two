@@ -8,59 +8,70 @@
 /* ------------ Hero ------------ */
 
 .hero {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    @include mobile {
+        height: 67svh;
+        margin-bottom: 0;
+        padding-top: mvw(75);
+        padding-bottom: mvw(20);
+    }
 }
 
-.hero__heading {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero__bar {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: flex-end;
-    gap: vw(40);
-    padding-bottom: vw(24);
+.hero__title {
+    display: contents;
 
     @include mobile {
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .h1 {
+        @include mobile {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.hero__actions {
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap: mvw(20);
-        padding-bottom: mvw(16);
     }
 }
 
-.hero__thumb {
-    position: relative;
-    width: vw(72);
-    aspect-ratio: 5 / 4;
-    overflow: hidden;
-    background-color: #1d5b57;
-
+.hero__sub {
     @include mobile {
-        width: mvw(56);
-    }
-}
-
-.hero__subtitle {
-    justify-self: center;
-    text-align: center;
-
-    @include mobile {
-        grid-column: 1 / -1;
         order: -1;
-        margin-bottom: mvw(12);
+        max-width: 100%;
+    }
+}
+
+.hero__play {
+    @include mobile {
+        display: none;
     }
 }
 
 .hero__arrow {
     justify-self: end;
     align-self: flex-end;
+
+    @include mobile {
+        display: flex;
+        align-self: center;
+    }
+}
+
+/* ------------ Featured Banner ------------ */
+
+#featured {
+    @include mobile {
+        aspect-ratio: 393 / 567;
+    }
 }
 
 /* ------------ Category Cards ------------ */
@@ -73,27 +84,29 @@
     overflow: visible;
 }
 
+.category-stack {
+    display: none;
+
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+        gap: mvw(40);
+        padding-inline: mvw(20);
+    }
+}
+
+@include mobile {
+    .category-carousel .category-swiper {
+        display: none;
+    }
+}
+
 .category-swiper .category-slide {
     width: vw(386);
     height: auto;
 
     &.is-wide {
         width: vw(792);
-    }
-
-    .h-447 {
-        @include mobile {
-            height: auto;
-            aspect-ratio: 353 / 420;
-        }
-    }
-
-    @include mobile {
-        width: mvw(300);
-
-        &.is-wide {
-            width: mvw(300);
-        }
     }
 }
 
@@ -104,7 +117,7 @@
 
     @include mobile {
         height: auto;
-        aspect-ratio: 353 / 420;
+        aspect-ratio: 5 / 4;
     }
 }
 

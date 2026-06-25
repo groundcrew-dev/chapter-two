@@ -17,8 +17,8 @@
     padding: vw(28) vw(60) vw(40);
 
     @include mobile {
-        height: auto;
-        padding: mvw(18) mvw(20) mvw(30);
+        height: mvw(749);
+        padding: mvw(20) mvw(20) mvw(30);
     }
 }
 
@@ -36,9 +36,35 @@ html.theme-dark .footer {
     flex-direction: column;
     opacity: 0;
     transition: opacity 1.2s ease 0.35s;
+}
+
+.footer__nav-m {
+    display: none;
 
     @include mobile {
-        height: auto;
+        display: flex;
+        gap: mvw(4);
+
+        a:not(:last-child)::after {
+            content: ",";
+        }
+    }
+}
+
+.footer__ig-m {
+    display: none;
+
+    @include mobile {
+        display: inline-flex;
+        margin-top: mvw(18);
+    }
+}
+
+@include mobile {
+    .footer__logo,
+    .footer__ig,
+    .footer__nav-d {
+        display: none;
     }
 }
 
@@ -80,7 +106,12 @@ html.theme-dark .footer {
 
     @include mobile {
         grid-template-columns: 1fr;
-        gap: mvw(8);
+        gap: mvw(6);
+
+        > * {
+            justify-self: center;
+            text-align: center;
+        }
     }
 }
 

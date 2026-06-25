@@ -83,3 +83,8 @@
     opacity: 0;
     will-change: opacity, transform;
 }
+
+[data-hero-reveal] {
+    opacity: 0;
+    will-change: opacity;
+}
