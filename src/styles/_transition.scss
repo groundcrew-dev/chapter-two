@@ -57,3 +57,17 @@ html.theme-dark::view-transition {
         clip-path: inset(0% 0% 0% 0%);
     }
 }
+
+html[data-astro-transition-fallback="old"] .page-shell {
+    animation: 0.7s var(--pt-ease) both pt-old;
+}
+
+html[data-astro-transition-fallback="new"] .page-shell {
+    animation: 0.7s var(--pt-ease) both pt-new;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html[data-astro-transition-fallback] .page-shell {
+        animation: none !important;
+    }
+}

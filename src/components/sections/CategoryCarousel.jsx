@@ -11,7 +11,7 @@ const Card = ({ category, count }) => {
         <a href={`/projects?category=${category.slug}`} className='card flex flex-col gap-20 h-100' data-scroll>
             <div className='pos-rel category-card__img overflow'>
                 <div className='bg-image-wrapper' style={{ "--blur": `url(${ri.base64})` }}>
-                    <img className='bg-image-main' src={ri.src} srcSet={ri.srcSet} sizes='(max-width: 768px) 90vw, 40vw' width={ri.width} height={ri.height} alt={ri.alt || category.title} loading='lazy' data-img />
+                    <img className='bg-image-main' src={ri.src} srcSet={ri.srcSet} sizes='(max-width: 768px) 90vw, 40vw' width={ri.width} height={ri.height} alt={ri.alt || category.title} data-img />
                 </div>
             </div>
             <h3 className='h3'>{category.title}<sup className='count balance'>({count})</sup></h3>

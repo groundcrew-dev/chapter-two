@@ -7,7 +7,7 @@ const mins = article.readTime?.match(/\d+/)?.[0]
 const readShort = mins ? `${mins} Min${mins === "1" ? "" : "s"}` : article.readTime
 ---
 
-<a href={`/articles/${article.slug}`} class="card article-card grid-2 gap-20 align-stretch m-grid-1 m-gap-16" data-scroll data-category={article.category} data-status="all">
+<a href={`/articles/${article.slug}`} class="card article-card grid-2 gap-20 align-stretch m-grid-1 m-gap-16" data-scroll data-category={article.category} data-status={article.category}>
     <div class="article-card__img pos-rel ratio-article overflow"><BgImage image={article.listingImage} sizes="(max-width: 768px) 90vw, 22vw" /></div>
     <div class="article-card__text flex flex-col space-between border-t-strong py16 pos-rel">
         <h3 class="article-card__title h3 balance">{article.title}</h3>

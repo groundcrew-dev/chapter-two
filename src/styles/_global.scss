@@ -175,6 +175,7 @@
 
 @include mobile {
     .m-hide { display: none; }
+    .m-first-only > :not(:first-child) { display: none; }
     .m-show { display: revert; }
     .m-block { display: block; }
     .m-flex-col { flex-direction: column; }
