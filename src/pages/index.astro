@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro"
 import { fetchData, responsiveImageFragment } from "@/lib/datocms"
 import Hero from "@/components/sections/Hero.astro"
 import FeaturedProject from "@/components/sections/FeaturedProject.astro"
-import CategoryCard from "@/components/cards/CategoryCard.astro"
+import { CategoryCarousel } from "@/components/sections/CategoryCarousel.jsx"
 import TeamSection from "@/components/sections/TeamSection.astro"
 import Spacer from "@/components/blocks/Spacer.astro"
 import BgImage from "@/components/media/BgImage.astro"
@@ -52,8 +52,8 @@ allProjects.forEach(p => {
 
     <Spacer count={2} />
 
-    <section class="page category-grid">
-        {categories.map(category => <CategoryCard category={category} count={counts[category.id] ?? 0} />)}
+    <section class="category-carousel">
+        <CategoryCarousel client:load categories={categories} counts={counts} />
     </section>
 
     <Spacer count={2} />

@@ -16,6 +16,6 @@ const { blocks = [] } = Astro.props
         {block.__typename === "FullBannerBlockRecord" && <FullBanner block={block} />}
         {block.__typename === "PortraitImageBlockRecord" && <PortraitImage block={block} />}
         {block.__typename === "OverviewBlockRecord" && <SplitContent heading={block.heading || "Overview"} body={block.body} spacers={0} />}
-        {block.__typename === "GalleryBlockRecord" && <Gallery client:visible slides={block.slides} />}
+        {block.__typename === "GalleryBlockRecord" && <Gallery client:load slides={block.slides} />}
     </>
 ))}

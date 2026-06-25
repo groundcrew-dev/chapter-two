@@ -3,7 +3,7 @@ const { heading, subtitle } = Astro.props
 const headingHtml = (heading ?? "").replace(/\.\s+/, '.<span class="tm">TM</span><br>')
 ---
 
-<section class="page flex flex-col justify-end h-100vh pb24">
+<section class="page flex flex-col justify-end h-70vh mb40 pb24">
     <h1 class="h1 small text-center w-100 mb40 anim-heading" set:html={headingHtml}></h1>
     <div class="center-grid align-end gap-40">
         <div class="pos-rel w-72 ratio-5-4 overflow bg-teal white flex align-center justify-center" data-enter><span class="icon-play"></span></div>

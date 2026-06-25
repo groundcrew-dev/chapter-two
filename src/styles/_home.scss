@@ -65,14 +65,35 @@
 
 /* ------------ Category Cards ------------ */
 
-.category-grid {
-    display: grid;
-    grid-template-columns: 792fr 386fr 386fr;
-    column-gap: vw(23);
+.category-carousel {
+    overflow: hidden;
+}
+
+.category-swiper {
+    overflow: visible;
+}
+
+.category-swiper .category-slide {
+    width: vw(386);
+    height: auto;
+
+    &.is-wide {
+        width: vw(792);
+    }
+
+    .h-447 {
+        @include mobile {
+            height: auto;
+            aspect-ratio: 353 / 420;
+        }
+    }
 
     @include mobile {
-        grid-template-columns: 1fr;
-        row-gap: mvw(40);
+        width: mvw(300);
+
+        &.is-wide {
+            width: mvw(300);
+        }
     }
 }
 

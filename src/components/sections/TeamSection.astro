@@ -7,5 +7,5 @@ const { heading, body, members } = Astro.props
 
 <SplitContent heading={heading} body={body} spacers={1} measure="measure-634" />
 <section class="page fade--up" data-scroll>
-    <TeamCarousel client:visible members={members} />
+    <TeamCarousel client:load members={members} />
 </section>

@@ -17,3 +17,20 @@
 .gallery-img.is-active {
     opacity: 1;
 }
+
+.gallery-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: s(44);
+    height: s(36);
+    border-radius: s(8);
+    border: 1px solid var(--c-line);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+        border-color: var(--c-text);
+    }
+}

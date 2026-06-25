@@ -50,6 +50,7 @@ function initParallax(lenis) {
 }
 
 let fadeObserver = null
+const fadedSet = new WeakSet()
 function initFades() {
     if (!fadeObserver) {
         fadeObserver = new IntersectionObserver(
@@ -64,13 +65,14 @@ function initFades() {
         )
     }
     document.querySelectorAll("[data-scroll]").forEach(el => {
-        if (el.dataset.faded) return
-        el.dataset.faded = "1"
+        if (fadedSet.has(el)) return
+        fadedSet.add(el)
         fadeObserver.observe(el)
     })
 }
 
 let peelObserver = null
+const peeledSet = new WeakSet()
 function initPeel() {
     if (!peelObserver) {
         peelObserver = new IntersectionObserver(
@@ -85,8 +87,8 @@ function initPeel() {
         )
     }
     document.querySelectorAll(".bg-image-wrapper, .team-main, .team-thumb__image").forEach(w => {
-        if (w.dataset.peel || w.closest("[data-parallax]")) return
-        w.dataset.peel = "1"
+        if (peeledSet.has(w) || w.closest("[data-parallax]")) return
+        peeledSet.add(w)
         peelObserver.observe(w)
     })
 }
@@ -118,6 +120,7 @@ export function initAnimations(lenis) {
     document.addEventListener("astro:before-swap", event => {
         pendingTransition = event.viewTransition
         root.classList.add("is-transitioning")
+        if (root.classList.contains("theme-dark") && event.newDocument) event.newDocument.documentElement.classList.add("theme-dark")
     })
     document.addEventListener("astro:after-swap", () => {
         window.scrollTo(0, 0)

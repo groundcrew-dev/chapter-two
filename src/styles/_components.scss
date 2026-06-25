@@ -131,7 +131,7 @@
 /* ------------ Page Title ------------ */
 
 .page-title {
-    min-height: 80svh;
+    min-height: 70svh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -145,11 +145,20 @@
     }
 }
 
+.page-title.short {
+    min-height: 40svh;
+    justify-content: center;
+    padding-bottom: 0;
+}
+
 .page-title.tight {
-    padding-top: vw(140);
+    min-height: 0;
+    justify-content: flex-start;
+    padding-top: vw(200);
+    padding-bottom: 0;
 
     @include mobile {
-        padding-top: mvw(110);
+        padding-top: mvw(150);
     }
 }
 
