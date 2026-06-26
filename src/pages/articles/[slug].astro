@@ -94,7 +94,7 @@ const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
         <section class="page">
             <div class="flex space-between align-center">
                 <h2 class="h3">Keep Exploring</h2>
-                <a href="/articles" class="small nav-link balance">See All ({_allArticlesMeta.count})</a>
+                <a href="/articles" class="small nav-link flex align-center gap-8 balance">See All<span class="arrow-box dark"><span class="icon-arrow-diagonal"></span></span></a>
             </div>
             <div class="grid-2 gap-x-24 gap-y-60 mt40 m-grid-1 m-gap-40">
                 {related.map(a => <ArticleCard article={a} />)}

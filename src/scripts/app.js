@@ -2,12 +2,14 @@ import Lenis from "lenis"
 import { initAnimations } from "./animations.js"
 
 let lenis
+let popupLenis = null
 
 function initLenis() {
     if (lenis) return lenis
     lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true })
     const raf = time => {
         lenis.raf(time)
+        if (popupLenis) popupLenis.raf(time)
         requestAnimationFrame(raf)
     }
     requestAnimationFrame(raf)
@@ -120,6 +122,8 @@ function initFilter() {
 function initAnchorScroll() {
     if (initAnchorScroll.bound) return
     initAnchorScroll.bound = true
+    // Capture phase + stopPropagation so ClientRouter doesn't also handle the
+    // hash link with its own (offset-0) scroll, which would override ours.
     document.addEventListener("click", e => {
         const a = e.target.closest && e.target.closest('a[href^="#"], [data-scroll-to]')
         if (!a) return
@@ -128,9 +132,15 @@ function initAnchorScroll() {
         const target = document.querySelector(sel)
         if (!target) return
         e.preventDefault()
-        if (lenis) lenis.scrollTo(target, { offset: 0 })
+        e.stopPropagation()
+        let offset = 0
+        if (a.dataset.scrollOffset === "header") {
+            const header = document.querySelector("[data-header]")
+            if (header) offset = -header.offsetHeight
+        }
+        if (lenis) lenis.scrollTo(target, { offset })
         else target.scrollIntoView({ behavior: "smooth" })
-    })
+    }, true)
 }
 
 function initProjectHeader() {
@@ -160,7 +170,7 @@ function initProjectHeader() {
         if (i < 0) return
         if (i !== initProjectHeader.current) {
             initProjectHeader.current = i
-            if (count) count.textContent = sections.length ? `${i + 1} / ${sections.length}` : ""
+            if (count) count.innerHTML = sections.length ? `${i + 1}<span class="proj-nav__slash">/</span>${sections.length}` : ""
         }
         paint()
     }
@@ -196,6 +206,92 @@ function initProjectHeader() {
     }
 }
 
+function openContact() {
+    const popup = document.querySelector("[data-contact]")
+    if (!popup || popup.classList.contains("is-open")) return
+    popup.classList.add("is-open")
+    popup.setAttribute("aria-hidden", "false")
+    document.body.classList.add("contact-open")
+    if (lenis) lenis.stop()
+    const scrollEl = popup.querySelector("[data-contact-scroll]")
+    if (scrollEl && scrollEl.firstElementChild && !popupLenis) {
+        popupLenis = new Lenis({
+            wrapper: scrollEl,
+            content: scrollEl.firstElementChild,
+            duration: 1,
+            easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true
+        })
+    }
+    const closeBtn = popup.querySelector("[data-contact-close]")
+    if (closeBtn) setTimeout(() => closeBtn.focus({ preventScroll: true }), 50)
+}
+
+function closeContact() {
+    const popup = document.querySelector("[data-contact]")
+    if (popup) {
+        popup.classList.remove("is-open")
+        popup.setAttribute("aria-hidden", "true")
+        const thankyou = popup.querySelector("[data-contact-thankyou]")
+        if (thankyou) {
+            thankyou.classList.remove("is-visible")
+            thankyou.setAttribute("aria-hidden", "true")
+        }
+    }
+    document.body.classList.remove("contact-open")
+    if (popupLenis) { popupLenis.destroy(); popupLenis = null }
+    if (lenis) lenis.start()
+}
+
+function submitContact(form) {
+    const popup = form.closest("[data-contact]")
+    const thankyou = popup && popup.querySelector("[data-contact-thankyou]")
+    const body = new URLSearchParams(new FormData(form)).toString()
+    fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body
+    })
+        .then(() => {
+            if (thankyou) {
+                thankyou.classList.add("is-visible")
+                thankyou.setAttribute("aria-hidden", "false")
+            }
+            form.reset()
+            if (popupLenis) popupLenis.scrollTo(0, { immediate: true })
+        })
+        .catch(err => console.error("Contact form submit failed", err))
+}
+
+function initContactPopup() {
+    if (initContactPopup.bound) return
+    initContactPopup.bound = true
+
+    // Capture phase so the trigger's preventDefault beats ClientRouter navigation.
+    document.addEventListener("click", e => {
+        if (!e.target.closest) return
+        if (e.target.closest("[data-contact-close]")) { e.preventDefault(); closeContact(); return }
+        if (e.target.closest("[data-contact-trigger]")) { e.preventDefault(); openContact(); return }
+        const open = document.querySelector("[data-contact].is-open")
+        if (open && e.target === open) closeContact()
+    }, true)
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeContact()
+    })
+
+    // Capture phase + stopPropagation so Astro's ClientRouter doesn't intercept
+    // this form as an SPA navigation (action="/" is only the no-JS Netlify target).
+    document.addEventListener("submit", e => {
+        const form = e.target
+        if (form && form.matches && form.matches("[data-contact-form]")) {
+            e.preventDefault()
+            e.stopPropagation()
+            submitContact(form)
+        }
+    }, true)
+}
+
 function initPage() {
     initFooterReveal()
     initHeaderTheme()
@@ -204,6 +300,7 @@ function initPage() {
     initFilter()
     initAnchorScroll()
     initProjectHeader()
+    initContactPopup()
 }
 
 initLenis()
@@ -211,4 +308,7 @@ initPage()
 initAnimations(lenis)
 
 document.addEventListener("astro:page-load", initPage)
-document.addEventListener("astro:after-swap", () => window.scrollTo(0, 0))
+document.addEventListener("astro:after-swap", () => {
+    closeContact()
+    window.scrollTo(0, 0)
+})

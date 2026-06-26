@@ -17,7 +17,7 @@ const { blocks = [] } = Astro.props
         {block.__typename === "SmallCenteredImageBlockRecord" && <SmallCenteredImage block={block} />}
         {block.__typename === "FullBannerBlockRecord" && <FullBanner block={block} />}
         {block.__typename === "PortraitImageBlockRecord" && <PortraitImage block={block} />}
-        {block.__typename === "OverviewBlockRecord" && <SplitContent heading={block.heading || "Overview"} body={block.body} spacers={0} />}
+        {block.__typename === "OverviewBlockRecord" && <SplitContent heading={block.heading || "Overview"} body={block.body} buttonText={block.buttonText} buttonLink={block.buttonLink} spacers={0} />}
         {block.__typename === "GalleryBlockRecord" && <Gallery client:load slides={block.slides} />}
     </>
 ))}

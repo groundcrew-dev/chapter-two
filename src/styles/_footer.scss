@@ -13,8 +13,15 @@
     padding: vw(28) vw(60) vw(40);
 
     @include mobile {
-        height: mvw(749);
+        height: 80svh;
         padding: mvw(20) mvw(20) mvw(30);
+    }
+}
+
+.footer__tagline .h1.small,
+.footer__mid .h1.small {
+    @include mobile {
+        font-size: mvw(46);
     }
 }
 

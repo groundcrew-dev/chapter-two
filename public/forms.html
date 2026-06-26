@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8" /></head>
+<body>
+  <!-- Static form for Netlify build-time detection. Must mirror the fields in ContactPopup.astro exactly. -->
+  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="contact" />
+    <input name="bot-field" />
+    <input type="text" name="first-name" />
+    <input type="text" name="last-name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <select name="enquiry-type">
+      <option value="General Enquiry">General Enquiry</option>
+      <option value="Project Enquiry">Project Enquiry</option>
+      <option value="Joint Venture">Joint Venture</option>
+      <option value="Land Acquisition">Land Acquisition</option>
+    </select>
+    <textarea name="message"></textarea>
+  </form>
+</body>
+</html>

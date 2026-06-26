@@ -1,10 +1,11 @@
 ---
 const path = Astro.url.pathname
+const { projectName, projectLocation } = Astro.props
 const links = [
     { label: "Portfolio", href: "/projects" },
     { label: "About", href: "/about" },
-    { label: "News", href: "/articles" },
-    { label: "Contact", href: "/contact" }
+    { label: "Articles", href: "/articles" },
+    { label: "Contact", href: "#contact", contact: true }
 ]
 const isActive = href => path === href || path.startsWith(href + "/")
 const isProjectDetail = /^\/projects\/[^/]+\/?$/.test(path)
@@ -20,6 +21,12 @@ const isProjectDetail = /^\/projects\/[^/]+\/?$/.test(path)
                     </span>
                     <span class="proj-nav__count small" data-proj-count></span>
                 </button>
+                {projectName && (
+                    <span class="proj-meta small nowrap">
+                        {projectName}
+                        {projectLocation ? `, ${projectLocation}` : ""}
+                    </span>
+                )}
                 <a href="/projects" class="arrow-box" aria-label="Back to projects">
                     <span class="icon-close" />
                 </a>
@@ -31,7 +38,7 @@ const isProjectDetail = /^\/projects\/[^/]+\/?$/.test(path)
                 <a href="/" class="logo" aria-label="Chapter Two" />
                 <nav class="masthead__nav">
                     {links.map(link => (
-                        <a href={link.href} class:list={["nav-link", "small", "balance", { "is-active": isActive(link.href) }]}>
+                        <a href={link.href} class:list={["nav-link", "small", "balance", { "is-active": isActive(link.href) }]} {...(link.contact ? { "data-contact-trigger": "" } : {})}>
                             {link.label}
                         </a>
                     ))}

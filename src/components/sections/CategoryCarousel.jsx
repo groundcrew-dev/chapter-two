@@ -34,10 +34,9 @@ export const CategoryCarousel = ({ categories = [], counts = {} }) => {
                 slidesPerView='auto'
                 freeMode
                 grabCursor
+                threshold={10}
                 spaceBetween={16}
-                slidesOffsetBefore={20}
-                slidesOffsetAfter={20}
-                breakpoints={{ 769: { spaceBetween: 23, slidesOffsetBefore: 60, slidesOffsetAfter: 60 } }}>
+                breakpoints={{ 769: { spaceBetween: 23 } }}>
                 {categories.map((category, i) => (
                     <SwiperSlide key={category.id} className={`category-slide${i === 0 ? " is-wide" : ""}`}>
                         <Card category={category} count={counts[category.id] ?? 0} />

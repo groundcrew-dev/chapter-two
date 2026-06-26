@@ -10,7 +10,7 @@ export const Gallery = ({ slides = [], bare = false }) => {
     const current = slides[index]
     const inner = (
         <div className={bare ? "w-100" : "max-800 w-100 ma"}>
-            <div className={`pos-rel overflow ${bare ? "ratio-news" : "ratio-card"}`}>
+            <div className={`pos-rel overflow ${bare ? "ratio-news" : "ratio-3-2 block-img-cap"}`}>
                 {slides.map((slide, i) => <img key={i} className={`gallery-img${i === index ? ' is-active' : ''}`} src={slide.image.responsiveImage.src} srcSet={slide.image.responsiveImage.srcSet} sizes='(max-width: 768px) 90vw, 40vw' alt={slide.image.responsiveImage.alt || ''} loading='lazy' /> )}
             </div>
             <div className='flex align-center gap-20 mt20'>

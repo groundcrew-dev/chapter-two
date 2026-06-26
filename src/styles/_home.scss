@@ -83,6 +83,13 @@
 
 .category-carousel {
     overflow: hidden;
+    // Match the page text inset (.page padding) so the carousel edges line up
+    // with the text; the cards split 50/25/25 of this inset width.
+    padding-inline: vw(60);
+
+    @include mobile {
+        padding-inline: 0;
+    }
 }
 
 .category-swiper {
@@ -106,12 +113,16 @@
     }
 }
 
+// Three cards fill the inset row as 50% / 25% / 25%, after removing the two
+// 23px gaps Swiper adds between them. The side inset is the carousel's own
+// vw(60) padding (matching .page), so the edges align with the text and the
+// wide card's edge + gap lands the next card exactly on the 50% line.
 .category-swiper .category-slide {
-    width: vw(386);
+    width: calc((100vw - #{vw(120)} - 46px) / 4);
     height: auto;
 
     &.is-wide {
-        width: vw(792);
+        width: calc((100vw - #{vw(120)} - 46px) / 2);
     }
 }
 

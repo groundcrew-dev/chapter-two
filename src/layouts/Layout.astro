@@ -3,8 +3,9 @@ import "@/styles/site.scss"
 import { ClientRouter } from "astro:transitions"
 import Header from "@/components/layout/Header.astro"
 import Footer from "@/components/layout/Footer.astro"
+import ContactPopup from "@/components/layout/ContactPopup.astro"
 
-const { title = "Chapter Two", description = "Chapter Two creates apartments, townhouses and masterplanned neighbourhoods across South East Queensland." } = Astro.props
+const { title = "Chapter Two", description = "Chapter Two creates apartments, townhouses and masterplanned neighbourhoods across South East Queensland.", projectName, projectLocation } = Astro.props
 ---
 
 <!doctype html>
@@ -21,11 +22,12 @@ const { title = "Chapter Two", description = "Chapter Two creates apartments, to
         <ClientRouter />
     </head>
     <body>
-        <Header />
+        <Header projectName={projectName} projectLocation={projectLocation} />
         <main class="page-shell" id="page-main" data-main>
             <slot />
         </main>
         <Footer />
+        <ContactPopup />
         <script>
             import "@/scripts/app.js"
         </script>

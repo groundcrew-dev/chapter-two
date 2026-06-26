@@ -1,0 +1,79 @@
+---
+import { fetchData } from "@/lib/datocms"
+
+const { siteConfig } = await fetchData(`query {
+    siteConfig {
+        contactIntro
+        contactThankYouHeading
+        contactThankYouMessage
+    }
+}`)
+
+const intro = siteConfig?.contactIntro ?? "Our team is always happy to assist you. If you have any questions about a project or are interested in discussing site acquisitions or partnerships, please get in touch."
+const thankHeading = siteConfig?.contactThankYouHeading ?? "Thank You"
+const thankMessage = siteConfig?.contactThankYouMessage ?? "Your enquiry has been received. A member of our team will be in touch with you shortly."
+
+const ENQUIRY_OPTIONS = ["General Enquiry", "Project Enquiry", "Joint Venture", "Land Acquisition"]
+---
+
+<div class="contact-popup" data-contact aria-hidden="true">
+    <div class="contact-panel" role="dialog" aria-modal="true" aria-label="Contact">
+        <div class="contact-header">
+            <span class="logo contact-logo" aria-hidden="true"></span>
+            <button type="button" class="contact-close arrow-box dark" data-contact-close aria-label="Close contact form">
+                <span class="icon-close"></span>
+            </button>
+        </div>
+
+        <div class="contact-scroll" data-contact-scroll>
+            <form class="contact-form" name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-contact-form>
+                <input type="hidden" name="form-name" value="contact" />
+                <p class="contact-hp" aria-hidden="true"><label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+                <div class="contact-form__top">
+                    <p class="contact-intro large balance">{intro}</p>
+
+                    <div class="contact-grid">
+                        <div class="contact-field">
+                            <label class="contact-label" for="cf-first">First Name*</label>
+                            <input class="contact-input" id="cf-first" type="text" name="first-name" placeholder=" " required autocomplete="given-name" />
+                        </div>
+                        <div class="contact-field">
+                            <label class="contact-label" for="cf-last">Last Name*</label>
+                            <input class="contact-input" id="cf-last" type="text" name="last-name" placeholder=" " required autocomplete="family-name" />
+                        </div>
+                        <div class="contact-field">
+                            <label class="contact-label" for="cf-email">Email Address*</label>
+                            <input class="contact-input" id="cf-email" type="email" name="email" placeholder=" " required autocomplete="email" />
+                        </div>
+                        <div class="contact-field">
+                            <label class="contact-label" for="cf-phone">Phone Number*</label>
+                            <input class="contact-input" id="cf-phone" type="tel" name="phone" placeholder=" " required autocomplete="tel" />
+                        </div>
+                        <div class="contact-field contact-field--full">
+                            <label class="contact-label" for="cf-enquiry">Enquiry Type*</label>
+                            <div class="contact-select">
+                                <select class="contact-input" id="cf-enquiry" name="enquiry-type" required>
+                                    <option value="" disabled selected>Please Select</option>
+                                    {ENQUIRY_OPTIONS.map(o => <option value={o}>{o}</option>)}
+                                </select>
+                                <span class="icon-arrow-down contact-select__arrow" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="contact-field contact-field--full">
+                            <label class="contact-label" for="cf-message">Message*</label>
+                            <textarea class="contact-input contact-textarea" id="cf-message" name="message" rows="4" placeholder=" " required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="contact-submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="contact-thankyou" data-contact-thankyou aria-hidden="true">
+            <h2 class="h2 contact-thankyou__heading">{thankHeading}</h2>
+            <p class="large balance contact-thankyou__msg">{thankMessage}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,305 @@
+@use "variables" as *;
+
+$dur-panel: 0.75s; // panel slide — normal ease-out, both directions
+$dur-backdrop: 0.5s; // scrim / blur fade — kept smaller than the panel
+$dur-hide: 0.8s; // visibility:hidden delay on exit, just past the slide-out
+
+// ===== Overlay container (holds the scrim + the sliding panel) =====
+.contact-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: flex;
+    justify-content: flex-end;
+    overflow: hidden; // clips the off-screen panel so it never causes page scroll
+    visibility: hidden;
+    pointer-events: none;
+    transition: visibility 0s linear $dur-hide;
+}
+
+.contact-popup.is-open {
+    visibility: visible;
+    pointer-events: auto;
+    transition: visibility 0s linear 0s;
+}
+
+// Scrim + heavy blur as a pseudo-element so it fades on its own (smaller
+// duration) independently of the panel's longer slide.
+.contact-popup::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(84, 84, 84, 0.3);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $dur-backdrop ease;
+}
+
+.contact-popup.is-open::before {
+    opacity: 1;
+}
+
+// ===== Panel (white version in light, inverts with the theme) =====
+.contact-panel {
+    position: relative;
+    width: 50vw;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    --cf-line: rgba(57, 51, 41, 0.2);
+    z-index: 1; // above the ::before scrim
+    transform: translateX(100%);
+    will-change: transform;
+    // normal ease, same curve/duration in both directions
+    transition: transform $dur-panel ease;
+
+    @include mobile {
+        width: 100vw;
+    }
+}
+
+html.theme-dark .contact-panel {
+    --cf-line: rgba(255, 255, 255, 0.2);
+}
+
+.contact-popup.is-open .contact-panel {
+    transform: translateX(0);
+}
+
+// ===== Header (logo + close; fixed 60px / 20px padding, no bottom so the
+//       gap to the intro is set purely by the intro's own margin) =====
+.contact-header {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 60px 0;
+
+    @include mobile {
+        padding: 20px 20px 0;
+    }
+}
+
+// The close button is a standard .arrow-box.dark (dark box + white cross),
+// identical to the site's arrow buttons — hover + dark-mode inversion included.
+// Styling comes entirely from .arrow-box; no overrides needed here.
+
+// ===== Scroll region (own Lenis instance) =====
+.contact-scroll {
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+// ===== Form (fixed 60px / 20px padding) =====
+.contact-form {
+    position: relative;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 60px 60px;
+
+    @include mobile {
+        padding: 0 20px 40px;
+    }
+}
+
+// Top-aligned content; intro carries equal top/bottom margin; submit pinned bottom.
+.contact-form__top {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-intro {
+    max-width: 550px;
+    margin: 80px auto;
+    text-align: center;
+
+    @include mobile {
+        margin-block: 48px;
+    }
+}
+
+// ===== Field grid (row gap differs from column gap) =====
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 33px;
+    row-gap: 30px;
+
+    @include mobile {
+        column-gap: 16px;
+        row-gap: 24px;
+    }
+}
+
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.contact-field--full {
+    grid-column: 1 / -1;
+}
+
+.contact-label {
+    font-family: $font-sans;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+}
+
+// ===== Inputs =====
+.contact-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: $font-small;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--c-text);
+    background-color: transparent;
+    border: 1px solid var(--cf-line);
+    border-radius: 0;
+    transition: border-color 0.35s ease;
+
+    @include mobile {
+        font-size: 16px; // avoid iOS zoom-on-focus
+    }
+}
+
+.contact-input::placeholder {
+    color: transparent;
+}
+
+.contact-input:focus {
+    border-color: var(--c-text);
+}
+
+input.contact-input:not(:placeholder-shown),
+textarea.contact-input:not(:placeholder-shown) {
+    border-color: var(--c-text);
+}
+
+select.contact-input:valid {
+    border-color: var(--c-text);
+}
+
+// ===== Custom select wrapper =====
+.contact-select {
+    position: relative;
+}
+
+.contact-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 48px;
+    cursor: pointer;
+}
+
+.contact-select__arrow {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    color: var(--c-text);
+    pointer-events: none;
+}
+
+// ===== Textarea (vertical resize only) =====
+.contact-textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.4;
+}
+
+// ===== Submit (pinned to bottom, inverts with theme like the arrow buttons) =====
+.contact-submit {
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
+    padding: 16px 20px;
+    font-family: $font-sans;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: var(--c-bg);
+    background-color: var(--c-text);
+    border: 1px solid var(--c-text);
+    transition: background-color 0.4s ease, color 0.4s ease;
+
+    &:hover {
+        background-color: transparent;
+        color: var(--c-text);
+    }
+}
+
+// ===== Thank-you (fades in, centered) =====
+.contact-thankyou {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 60px;
+    text-align: center;
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+
+    @include mobile {
+        padding: 20px;
+        gap: 20px;
+    }
+}
+
+.contact-thankyou.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.contact-thankyou__msg {
+    max-width: 460px;
+}
+
+// ===== Honeypot =====
+.contact-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+// ===== Open state: lock page + hide the site header behind the overlay =====
+body.contact-open {
+    overflow: hidden;
+}
+
+body.contact-open .masthead {
+    opacity: 0;
+    pointer-events: none;
+}

@@ -2,11 +2,16 @@
 import Spacer from "@/components/blocks/Spacer.astro"
 import { cleanHtml } from "@/lib/html"
 
-const { heading, body, spacers = 1, measure = "" } = Astro.props
+const { heading, body, spacers = 1, measure = "", buttonText = "", buttonLink = "" } = Astro.props
 ---
 
 <div class="page grid-2 gap-24 m-grid-1 m-gap-20">
     <h3 class="h3 fade--up" data-scroll>{heading}</h3>
-    <div class={`rich-text fade--up delay-1 balance ${measure}`.trim()} data-scroll set:html={cleanHtml(body)}></div>
+    <div>
+        <div class={`rich-text fade--up delay-1 balance ${measure}`.trim()} data-scroll set:html={cleanHtml(body)}></div>
+        {buttonText && buttonLink && (
+            <a href={buttonLink} class="overview-btn fade--up delay-2" data-scroll>{buttonText}<span class="icon-arrow-diagonal"></span></a>
+        )}
+    </div>
 </div>
 <Spacer count={spacers} />

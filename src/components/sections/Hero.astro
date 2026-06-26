@@ -2,16 +2,15 @@
 import BgMedia from "@/components/media/BgMedia.astro"
 
 const { heading, subtitle, image, video } = Astro.props
-const hasTm = /\.\s+/.test(heading ?? "")
 const headingHtml = (heading ?? "").replace(/\.\s+/, ".<br>")
 ---
 
 <section class="hero page flex flex-col justify-end h-70vh mb40 pb24">
     <div class="hero__title">
-        <h1 class="h1 small text-center w-100 mb40 anim-heading" data-tm={hasTm ? "" : undefined} set:html={headingHtml}></h1>
+        <h1 class="h1 small text-center w-100 mb40 anim-heading" set:html={headingHtml}></h1>
     </div>
     <div class="hero__actions center-grid align-center gap-40">
-        <a href="#featured" class="hero__play pos-rel overflow flex align-center justify-center" aria-label="Scroll to featured project" data-enter>
+        <a href="#featured" class="hero__play pos-rel overflow flex align-center justify-center" aria-label="Scroll to featured project" data-enter data-scroll-offset="header">
             <BgMedia image={image} video={video} sizes="65px" />
             <span class="hero__play-icon icon-play"></span>
         </a>

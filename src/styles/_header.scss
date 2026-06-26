@@ -13,13 +13,16 @@
 
     @include mobile {
         padding: mvw(18) mvw(20);
+        background-color: var(--c-bg);
         border-bottom: 1px solid map.get($colors, "line");
+        transition: background-color 0.4s ease, color 0.5s ease;
     }
 
     &.is-light {
         color: #ffffff;
 
         @include mobile {
+            background-color: transparent;
             border-color: rgba(255, 255, 255, 0.2);
         }
     }
@@ -63,9 +66,26 @@
 .masthead__project {
     position: relative;
     z-index: 1;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
+}
+
+.masthead__project .proj-nav {
+    justify-self: start;
+}
+
+.masthead__project .arrow-box {
+    justify-self: end;
+}
+
+.proj-meta {
+    justify-self: center;
+    text-align: center;
+
+    @include mobile {
+        display: none;
+    }
 }
 
 .proj-nav {
@@ -97,6 +117,10 @@
 
 .proj-nav__count {
     letter-spacing: 0.1em;
+}
+
+.proj-nav__slash {
+    margin: 0 1.8em;
 }
 
 .masthead--project:not(.is-light) .arrow-box {
@@ -161,6 +185,8 @@
     border-radius: 100px;
     background-color: rgba(57, 51, 41, 0.15);
     background-color: #{"rgb(from currentColor r g b / 0.15)"};
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: vw(2);
     display: flex;
     align-items: center;

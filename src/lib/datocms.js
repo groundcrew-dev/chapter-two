@@ -9,7 +9,7 @@ export async function fetchData(query, variables) {
 
 export const responsiveImageFragment = `
     focalPoint { x y }
-    responsiveImage(imgixParams: { auto: format, fit: crop }) {
+    responsiveImage(imgixParams: { auto: format, q: 90, fit: crop }) {
         src
         srcSet
         width

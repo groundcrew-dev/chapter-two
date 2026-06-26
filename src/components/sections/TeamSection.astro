@@ -5,7 +5,7 @@ import { TeamCarousel } from "@/components/sections/TeamCarousel.jsx"
 const { heading, body, members } = Astro.props
 ---
 
-<SplitContent heading={heading} body={body} spacers={3} measure="measure-634" />
+<SplitContent heading={heading} body={body} spacers={3} />
 <section class="page fade--up" data-scroll>
     <TeamCarousel client:load members={members} />
 </section>
