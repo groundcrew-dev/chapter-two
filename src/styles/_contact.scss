@@ -119,7 +119,7 @@ html.theme-dark .contact-panel {
     text-align: center;
 
     @include mobile {
-        margin-block: 48px;
+        margin-block: 60px;
     }
 }
 
@@ -173,6 +173,7 @@ html.theme-dark .contact-panel {
 
     @include mobile {
         font-size: 16px; // avoid iOS zoom-on-focus
+        padding-block: 13px; // ~5px shorter fields on mobile
     }
 }
 

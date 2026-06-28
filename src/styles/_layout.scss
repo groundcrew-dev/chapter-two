@@ -84,14 +84,14 @@ body {
     letter-spacing: -0.05em;
 
     @include mobile {
-        font-size: mvw(68);
+        font-size: mvw(46); // all hero H1s share the project-detail hero size on mobile
     }
 
     &.small {
         font-size: vw(148);
 
         @include mobile {
-            font-size: mvw(36);
+            font-size: mvw(46);
         }
     }
 }

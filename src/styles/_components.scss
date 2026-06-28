@@ -167,7 +167,8 @@
     }
 }
 
-.detail-hero .h1 {
+.detail-hero .h1,
+.detail-hero .h2 {
     @include mobile {
         font-size: mvw(46);
     }
