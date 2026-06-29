@@ -13,6 +13,7 @@ const QUERY = `query {
         featureImage { ${responsiveImageFragment} }
         featureImageCaption
         teamMembers { name role linkedinUrl image { ${responsiveImageFragment} } }
+        _seoMetaTags { tag content attributes }
     }
 }`
 
@@ -20,7 +21,7 @@ const { aboutPage } = await fetchData(QUERY)
 const headingHtml = (aboutPage.heroHeading ?? "").replace(/\.\s+/g, ".<br>")
 ---
 
-<Layout title="About — Chapter Two">
+<Layout title="About — Chapter Two" seo={aboutPage._seoMetaTags}>
     <section class="page page-title tight">
         <h1 class="h1 anim-heading" set:html={headingHtml}></h1>
     </section>

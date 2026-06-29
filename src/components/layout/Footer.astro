@@ -30,7 +30,7 @@ const links = [
         <div class="footer__bottom center-grid align-end gap-20 m-grid-1 m-gap-8">
             <span class="small balance">© {year} Chapter Two. All Rights Reserved.</span>
             <nav class="footer__nav-d flex gap-8 justify-self-center">{links.map((link, i) => <a href={link.href} class="small nav-link balance" {...(link.contact ? { "data-contact-trigger": "" } : {})}>{link.label}{i < links.length - 1 ? "," : ""}</a>)}</nav>
-            <span class="small justify-self-end text-right m-text-center balance">Terms, Privacy, Website by <a href="https://groundcrew.com.au" target="_blank" rel="noreferrer" class="hover-fade">Groundcrew</a></span>
+            <span class="small justify-self-end text-right m-text-center balance"><a href="/privacy-policy" class="hover-fade">Privacy Policy</a>, Website by <a href="https://groundcrew.com.au" target="_blank" rel="noreferrer" class="hover-fade">Groundcrew</a></span>
         </div>
     </div>
 </footer>

@@ -3,8 +3,8 @@
 @use "sass:math";
 
 @font-face {
-    font-family: "Maison Neue";
-    src: url("/fonts/MaisonNeueTRIAL-Medium.otf") format("opentype");
+    font-family: "Switzer";
+    src: url("/fonts/Switzer-Medium.otf") format("opentype");
     font-weight: 400 600;
     font-style: normal;
     font-display: swap;
@@ -65,7 +65,7 @@ body {
     font-weight: 500;
     font-size: 13px;
     line-height: 1.2;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
 }
 
 .count {

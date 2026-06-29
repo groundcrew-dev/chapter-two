@@ -29,6 +29,7 @@ const QUERY = `query Article($slug: String) {
             ... on OverviewBlockRecord { heading body }
             ... on GalleryBlockRecord { slides { caption image ${img} } }
         }
+        _seoMetaTags { tag content attributes }
     }
     allArticles(first: 5, filter: { slug: { neq: $slug } }, orderBy: date_DESC) {
         title slug category readTime listingImage ${img}
@@ -45,7 +46,7 @@ const leadImage = imageBlock?.image ?? imageBlock?.slides?.[0]?.image
 const leadCaption = imageBlock?.caption ?? imageBlock?.slides?.[0]?.caption
 ---
 
-<Layout title={`${article.title} — Chapter Two`}>
+<Layout title={`${article.title} — Chapter Two`} seo={article._seoMetaTags}>
     {article.heroImage ? (
         <section class="detail-hero has-meta align-center text-center" data-dark>
             <div class="hero-media" data-parallax><BgMedia image={article.heroImage} sizes="100vw" /></div>

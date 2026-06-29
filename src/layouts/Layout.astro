@@ -5,7 +5,8 @@ import Header from "@/components/layout/Header.astro"
 import Footer from "@/components/layout/Footer.astro"
 import ContactPopup from "@/components/layout/ContactPopup.astro"
 
-const { title = "Chapter Two", description = "Chapter Two creates apartments, townhouses and masterplanned neighbourhoods across South East Queensland.", projectName, projectLocation } = Astro.props
+const { title = "Chapter Two", description = "Chapter Two creates apartments, townhouses and masterplanned neighbourhoods across South East Queensland.", seo = null, projectName, projectLocation } = Astro.props
+const seoTags = Array.isArray(seo) && seo.length ? seo : null
 ---
 
 <!doctype html>
@@ -13,8 +14,16 @@ const { title = "Chapter Two", description = "Chapter Two creates apartments, to
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        {seoTags ? seoTags.map((t) => {
+            const Tag = t.tag
+            if (Tag === "title") return <title set:html={t.content}></title>
+            return <Tag {...t.attributes} />
+        }) : (
+            <Fragment>
+                <title>{title}</title>
+                <meta name="description" content={description} />
+            </Fragment>
+        )}
         <link rel="icon" href="/favicon.svg" />
         <script is:inline>
             try { if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("theme-dark") } catch (e) {}

@@ -1,0 +1,17 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { fetchData } from "@/lib/datocms"
+import { cleanHtml } from "@/lib/html"
+import Spacer from "@/components/blocks/Spacer.astro"
+
+const { privacyPolicy } = await fetchData(`query { privacyPolicy { content } }`)
+const content = cleanHtml(privacyPolicy?.content).replace(/<a\b/gi, '<a class="ul-link"')
+---
+
+<Layout title="Privacy Policy — Chapter Two">
+    <Spacer count={2} />
+    <section class="page">
+        <div class="privacy-content fade--up" data-scroll set:html={content}></div>
+    </section>
+    <Spacer count={2} />
+</Layout>

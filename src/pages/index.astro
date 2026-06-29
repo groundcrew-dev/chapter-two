@@ -22,8 +22,11 @@ const QUERY = `query {
         ceImage { ${responsiveImageFragment} }
         teamHeading
         teamBody
-        teamMembers { name role linkedinUrl image { ${responsiveImageFragment} } }
+        teamImage { ${responsiveImageFragment} }
+        teamCaption
+        teamMembers { name role caption linkedinUrl image { ${responsiveImageFragment} } }
         featuredProject { title slug heroCaption heroImage { ${responsiveImageFragment} } }
+        _seoMetaTags { tag content attributes }
     }
     allCategories(orderBy: position_ASC) { id title slug shortDescription image { ${responsiveImageFragment} } }
     allProjects(first: 100) { category { id } }
@@ -41,7 +44,7 @@ allProjects.forEach(p => {
 })
 ---
 
-<Layout title="Chapter Two — Considered Places. Lasting Value.">
+<Layout title="Chapter Two — Considered Places. Lasting Value." seo={homepage._seoMetaTags}>
     <Hero heading={homepage.heroHeading} subtitle={homepage.heroSubtitle} image={homepage.heroImage} video={homepage.heroVideo} />
 
     <section class="pos-rel w-100 ratio-ocean overflow" id="featured" data-parallax data-hero-reveal><BgMedia image={homepage.heroImage} video={homepage.heroVideo} sizes="100vw" /></section>
@@ -65,7 +68,7 @@ allProjects.forEach(p => {
 
     <Spacer count={1} />
 
-    <TeamSection heading={homepage.teamHeading} body={homepage.teamBody} members={homepage.teamMembers} />
+    <TeamSection heading={homepage.teamHeading} body={homepage.teamBody} members={homepage.teamMembers} image={homepage.teamImage} caption={homepage.teamCaption} />
 
     <Spacer count={1} />
 </Layout>

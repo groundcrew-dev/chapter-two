@@ -29,9 +29,10 @@ const QUERY = `query Project($slug: String) {
             ... on SmallCenteredImageBlockRecord { image ${img} }
             ... on FullBannerBlockRecord { image ${img} }
             ... on PortraitImageBlockRecord { caption image ${img} }
-            ... on OverviewBlockRecord { heading body buttonText buttonLink }
+            ... on OverviewBlockRecord { heading body buttonText }
             ... on GalleryBlockRecord { slides { caption image ${img} } }
         }
+        _seoMetaTags { tag content attributes }
     }
     allProjects(first: 5, filter: { slug: { neq: $slug } }, orderBy: position_ASC) {
         title slug shortDescription availableResidences salesStatus category { slug } cardImage ${img}
@@ -48,7 +49,7 @@ const details = [
 ].filter(d => d.value)
 ---
 
-<Layout title={`${project.title} — Chapter Two`} projectName={project.title} projectLocation={project.location}>
+<Layout title={`${project.title} — Chapter Two`} seo={project._seoMetaTags} projectName={project.title} projectLocation={project.location}>
     <section class="detail-hero has-meta" data-dark data-img-section>
         <div class="hero-media" data-parallax><BgMedia image={project.heroImage} sizes="100vw" /></div>
         <div class="scrim"></div>
