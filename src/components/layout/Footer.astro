@@ -1,16 +1,36 @@
 ---
 import { fetchData } from "@/lib/datocms"
 
-const { siteConfig } = await fetchData(`query { siteConfig { footerTagline instagramUrl } }`)
+const { siteConfig, footer } = await fetchData(`query {
+    siteConfig { footerTagline }
+    footer {
+        instagramUrl
+        navLinks { ... on FooterLinkRecord { label url isContact } }
+        copyright
+        privacyLabel
+        privacyUrl
+        creditLabel
+        creditName
+        creditUrl
+    }
+}`)
 const tagline = (siteConfig?.footerTagline ?? "Considered Places. Lasting Value.").replace(/\.\s+/g, ".<br>")
-const ig = siteConfig?.instagramUrl ?? "https://www.instagram.com/chaptertwogroup/"
+const ig = footer?.instagramUrl ?? "https://www.instagram.com/chaptertwogroup/"
 const year = new Date().getFullYear()
-const links = [
-    { label: "Portfolio", href: "/projects" },
-    { label: "About", href: "/about" },
-    { label: "Articles", href: "/articles" },
-    { label: "Contact", href: "#contact", contact: true },
-]
+const links = footer?.navLinks?.length
+    ? footer.navLinks
+    : [
+          { label: "Portfolio", url: "/projects", isContact: false },
+          { label: "About", url: "/about", isContact: false },
+          { label: "Articles", url: "/articles", isContact: false },
+          { label: "Contact", url: "#contact", isContact: true },
+      ]
+const copyright = footer?.copyright ?? "Chapter Two. All Rights Reserved."
+const privacyLabel = footer?.privacyLabel ?? "Privacy Policy"
+const privacyUrl = footer?.privacyUrl ?? "/privacy-policy"
+const creditLabel = footer?.creditLabel ?? "Website by"
+const creditName = footer?.creditName ?? "Groundcrew"
+const creditUrl = footer?.creditUrl ?? "https://groundcrew.com.au"
 ---
 
 <footer class='footer' data-footer>
@@ -20,7 +40,7 @@ const links = [
             <nav class='footer__nav-m flex'>
                 {
                     links.map(link => (
-                        <a href={link.href} class='small balance' {...(link.contact ? { "data-contact-trigger": "" } : {})}>
+                        <a href={link.url} class='small balance' {...(link.isContact ? { "data-contact-trigger": "" } : {})}>
                             {link.label}
                         </a>
                     ))
@@ -36,18 +56,18 @@ const links = [
             <a href={ig} target='_blank' rel='noreferrer' class='footer__ig-m icon-instagram' aria-label='Instagram'></a>
         </div>
         <div class='footer__bottom center-grid align-end gap-20 m-grid-1 m-gap-8'>
-            <span class='small balance'>© {year} Chapter Two. All Rights Reserved.</span>
+            <span class='small balance'>© {year} {copyright}</span>
             <nav class='footer__nav-d flex gap-8 justify-self-center'>
                 {
                     links.map((link, i) => (
-                        <a href={link.href} class='small nav-link balance' {...(link.contact ? { "data-contact-trigger": "" } : {})}>
+                        <a href={link.url} class='small nav-link balance' {...(link.isContact ? { "data-contact-trigger": "" } : {})}>
                             {link.label}
                             {i < links.length - 1 ? "," : ""}
                         </a>
                     ))
                 }
             </nav>
-            <span class='small justify-self-end text-right m-text-center balance'><a href='/privacy-policy' class='hover-fade'>Privacy Policy</a>, Website by <a href='https://groundcrew.com.au' target='_blank' rel='noreferrer' class='hover-fade'>Groundcrew</a></span>
+            <span class='small justify-self-end text-right m-text-center balance'><a href={privacyUrl} class='hover-fade'>{privacyLabel}</a>, {creditLabel} <a href={creditUrl} target='_blank' rel='noreferrer' class='hover-fade'>{creditName}</a></span>
         </div>
     </div>
 </footer>
