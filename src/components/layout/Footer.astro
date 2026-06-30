@@ -3,34 +3,51 @@ import { fetchData } from "@/lib/datocms"
 
 const { siteConfig } = await fetchData(`query { siteConfig { footerTagline instagramUrl } }`)
 const tagline = (siteConfig?.footerTagline ?? "Considered Places. Lasting Value.").replace(/\.\s+/g, ".<br>")
-const ig = siteConfig?.instagramUrl ?? "https://instagram.com"
+const ig = siteConfig?.instagramUrl ?? "https://www.instagram.com/chaptertwogroup/"
 const year = new Date().getFullYear()
 const links = [
     { label: "Portfolio", href: "/projects" },
     { label: "About", href: "/about" },
     { label: "Articles", href: "/articles" },
-    { label: "Contact", href: "#contact", contact: true }
+    { label: "Contact", href: "#contact", contact: true },
 ]
 ---
 
-<footer class="footer" data-footer>
-    <div class="footer__content" data-footer-content>
-        <div class="footer__top flex space-between align-center">
-            <a href="/" class="footer__logo" aria-label="Chapter Two"></a>
-            <nav class="footer__nav-m flex">{links.map(link => <a href={link.href} class="small balance" {...(link.contact ? { "data-contact-trigger": "" } : {})}>{link.label}</a>)}</nav>
-            <div class="flex align-center gap-20">
-                <a href={ig} target="_blank" rel="noreferrer" class="footer__ig icon-instagram" aria-label="Instagram"></a>
-                <button class="toggle" aria-label="Toggle theme"><span class="toggle__knob"></span></button>
+<footer class='footer' data-footer>
+    <div class='footer__content' data-footer-content>
+        <div class='footer__top flex space-between align-center'>
+            <a href='/' class='footer__logo' aria-label='Chapter Two'></a>
+            <nav class='footer__nav-m flex'>
+                {
+                    links.map(link => (
+                        <a href={link.href} class='small balance' {...(link.contact ? { "data-contact-trigger": "" } : {})}>
+                            {link.label}
+                        </a>
+                    ))
+                }
+            </nav>
+            <div class='flex align-center gap-20'>
+                <a href={ig} target='_blank' rel='noreferrer' class='footer__ig icon-instagram' aria-label='Instagram'></a>
+                <button class='toggle' aria-label='Toggle theme'><span class='toggle__knob'></span></button>
             </div>
         </div>
-        <div class="footer__mid flex-1 flex flex-col align-center justify-center text-center">
-            <p class="h1 small" set:html={tagline}></p>
-            <a href={ig} target="_blank" rel="noreferrer" class="footer__ig-m icon-instagram" aria-label="Instagram"></a>
+        <div class='footer__mid flex-1 flex flex-col align-center justify-center text-center'>
+            <p class='h1 small' set:html={tagline} />
+            <a href={ig} target='_blank' rel='noreferrer' class='footer__ig-m icon-instagram' aria-label='Instagram'></a>
         </div>
-        <div class="footer__bottom center-grid align-end gap-20 m-grid-1 m-gap-8">
-            <span class="small balance">© {year} Chapter Two. All Rights Reserved.</span>
-            <nav class="footer__nav-d flex gap-8 justify-self-center">{links.map((link, i) => <a href={link.href} class="small nav-link balance" {...(link.contact ? { "data-contact-trigger": "" } : {})}>{link.label}{i < links.length - 1 ? "," : ""}</a>)}</nav>
-            <span class="small justify-self-end text-right m-text-center balance"><a href="/privacy-policy" class="hover-fade">Privacy Policy</a>, Website by <a href="https://groundcrew.com.au" target="_blank" rel="noreferrer" class="hover-fade">Groundcrew</a></span>
+        <div class='footer__bottom center-grid align-end gap-20 m-grid-1 m-gap-8'>
+            <span class='small balance'>© {year} Chapter Two. All Rights Reserved.</span>
+            <nav class='footer__nav-d flex gap-8 justify-self-center'>
+                {
+                    links.map((link, i) => (
+                        <a href={link.href} class='small nav-link balance' {...(link.contact ? { "data-contact-trigger": "" } : {})}>
+                            {link.label}
+                            {i < links.length - 1 ? "," : ""}
+                        </a>
+                    ))
+                }
+            </nav>
+            <span class='small justify-self-end text-right m-text-center balance'><a href='/privacy-policy' class='hover-fade'>Privacy Policy</a>, Website by <a href='https://groundcrew.com.au' target='_blank' rel='noreferrer' class='hover-fade'>Groundcrew</a></span>
         </div>
     </div>
 </footer>
